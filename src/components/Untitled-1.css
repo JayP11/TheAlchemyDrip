@@ -1,0 +1,40 @@
+:root {
+  /* dark shades of primary color*/
+  --clr-primary-1: #FEE692;
+  --clr-primary-2: #FEE898;
+  --clr-primary-3: #FEEAA0;
+  --clr-primary-4: #FEEBA8;
+  /* primary/main color */
+  --clr-primary-5: #FEEDB0;
+  /* lighter shades of primary color */
+  --clr-primary-6: #FEEFB8;
+  --clr-primary-7: #FEF1C0;
+  --clr-primary-8: #FEF3C7;
+  --clr-primary-9: #FFF6D7;
+  --clr-primary-10: #FFF8DF;
+  /* darkest grey - used for headings */
+  --clr-grey-1: #0F0D4F;
+  --clr-grey-2: #141169;
+  --clr-grey-3: #1E199C;
+  --clr-grey-4: #231EB6;
+  /* grey used for paragraphs */
+  --clr-grey-5: #2822CF;
+  --clr-grey-6: #3731DE;
+  --clr-grey-7: #6965E6;
+  --clr-grey-8: #9B98EE;
+  --clr-grey-9: #B4B2F2;
+  --clr-grey-10: #CDCCF7;
+  --clr-white: #fff;
+  --clr-red-dark: hsl(360, 67%, 44%);
+  --clr-red-light: hsl(360, 71%, 66%);
+  --clr-green-dark: hsl(125, 67%, 44%);
+  --clr-green-light: hsl(125, 71%, 66%);
+  --clr-black: #222;
+  --transition: all 0.3s linear;
+  --spacing: 0.1rem;
+  --radius: 0.25rem;
+  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  --max-width: 1170px;
+  --fixed-width: 620px;
+}

@@ -1,0 +1,68 @@
+.section-centerrrr {
+  width: 100%;
+  /* height: 85vh; */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.personn_img_main {
+  height: 85vh;
+}
+
+.personn-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+}
+
+aside h4 {
+  text-transform: uppercase;
+  color: var(--clr-primary-5);
+  margin-bottom: 0.25rem;
+}
+
+aside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: -1;
+  transition: var(--transition);
+}
+
+aside.activeSlide {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+aside.lastSlide {
+  transform: translateX(-100%);
+}
+
+aside.nextSlide {
+  transform: translateX(100%);
+}
+
+@media screen and (max-width: 1008px) {
+  .personn_img_main {
+    height: 60vh;
+  }
+}
+@media screen and (max-width: 769px) {
+  .personn_img_main {
+    height: 45vh;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .section-centerrrr {
+    margin-top: 0px;
+  }
+  aside {
+    top: -150px;
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-9M0B2THH8K"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag("js", new Date());
+
+      gtag("config", "G-9M0B2THH8K");
+    </script>
+
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="The Alchemy Drip" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
+    <!-- <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" /> -->
+    <meta property="og:title" content="The Alchemy Drip" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.webmanifest" />
+
+    <title>The Alchemy Drip</title>
+  </head>
+
+  <body>
+    <noscript>The Alchemy Drip</noscript>
+    <div id="root"></div>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        // Register a service worker hosted at the root of the
+        // site using the default scope.
+        navigator.serviceWorker.register("/service-worker.js").then(
+          function (registration) {
+            console.log("Service worker registration succeeded:", registration);
+          },
+          /*catch*/ function (error) {
+            console.log("Service worker registration failed:", error);
+          }
+        );
+      } else {
+        console.log("Service workers are not supported.");
+      }
+    </script>
+  </body>
+</html>
