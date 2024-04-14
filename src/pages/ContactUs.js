@@ -97,7 +97,9 @@ const ContactUs = () => {
               <b className="con-txt">
                 The Alchemy Drip,
                 <br />
-                Lot IBM 95 Tsaralalana Antananarivo <br />
+                4, 7th Main Rd, Bhuvaneshwari Nagar, Banashankari, Bengaluru,
+                Karnataka 560085, India
+                <br />
               </b>
               <br />
               <ul>

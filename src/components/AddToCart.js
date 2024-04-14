@@ -8,7 +8,6 @@ const AddToCart = ({ product, value, sizeValue, getstock, sizeid }) => {
   const { addToCart } = useCartContext();
 
   const { stock, colors, sizes, HIGHT, LENGTH, WIDTH, slug } = product;
-
   console.log("product details", sizeValue);
   console.log("product details qty", getstock);
   // Set Color State

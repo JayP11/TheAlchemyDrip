@@ -35,12 +35,12 @@ const MyOrders = () => {
   //   my_order_list
   // );
   const { isLogin, logintoken } = useUserContext();
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [openCancelModal, setCancelMOdal] = React.useState(false);
-  const [orderDetailsObject, setOrderDetailsObject] = React.useState({});
-  const [selectedOrder, setSelectedOrder] = React.useState([]);
-  const [selected_payment_return_mode, paymentMode] = React.useState(null);
-  const [open_order_number, setOrderNumber] = React.useState(null);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [openCancelModal, setCancelMOdal] = useState(false);
+  const [orderDetailsObject, setOrderDetailsObject] = useState({});
+  const [selectedOrder, setSelectedOrder] = useState([]);
+  const [selected_payment_return_mode, paymentMode] = useState(null);
+  const [open_order_number, setOrderNumber] = useState(null);
   // console.log('my_order_list ', my_order_list)
 
   const login = JSON.parse(localStorage.getItem("token"));
@@ -48,18 +48,17 @@ const MyOrders = () => {
     // const login =  localStorage.getItem("token");
     const login = JSON.parse(localStorage.getItem("token"));
 
-    console.log("token is", login);
     if (login !== "") {
       getOrdersList(login);
-      console.log("123");
     } else {
       console.log("error");
     }
   }, []);
+
   useEffect(() => {
     setOrderDetailsObject(single_order_details);
   }, [single_order_details]);
-  // console.log("=======>",orderDetailsObject);
+
   function openModal() {
     setIsOpen(true);
   }
@@ -155,7 +154,7 @@ const MyOrders = () => {
     downloadInvocie(params);
   };
   return (
-    <Wrapper>
+    <Wrapper style={{ maxHeight: "500px", overflow: "scroll" }}>
       <div className="wallet_inside">
         <div className="col-md-12 col-lg-12 col-sm-12 col-12">
           <div className="notification_head">
@@ -402,7 +401,7 @@ const MyOrders = () => {
                                     <h5
                                       classNameName="product-title"
                                       style={{ display: "flex" }}>
-                                      <h5>Product Name :</h5>
+                                      <h5>Product Name :&nbsp;</h5>
                                       <a href="javascript:void(0)">
                                         {item.product_name}
                                       </a>
@@ -430,14 +429,14 @@ const MyOrders = () => {
                                         </span>
                                       </div>
                                     </div>{" "} */}
-                                    <span>
+                                    {/* <span>
                                       <a href="#" classNameName="btn-move">
                                         Rate &amp; Review Product
                                       </a>
                                       <a href="#" classNameName="btn-move">
                                         Return
                                       </a>
-                                    </span>
+                                    </span> */}
                                   </td>
                                   <td style={{ display: "flex", gap: "2rem" }}>
                                     <div>
@@ -456,7 +455,13 @@ const MyOrders = () => {
                                     {item.total_quantity}
                                   </td> */}
                                   {/* <td>₹{item.total_price}</td> */}
-                                  <td>{formatPrice(item.total_price)}</td>
+                                  {/* <td>
+                                    <div>
+                                      {" "}
+                                      <b>Total Price : </b>
+                                      {formatPrice(item.total_price)}
+                                    </div>
+                                  </td> */}
                                 </tr>
                               </tbody>
                             </table>

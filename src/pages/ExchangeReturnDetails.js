@@ -12,6 +12,7 @@ import createNotification from "../utils/Notification";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import AmountButtons from "../components/AmountButtons";
 import { useCartContext } from "../context/cart_context";
+import QtyBtnExg from "../components/QtyBtnExg";
 
 const ExchangeReturnDetails = () => {
   const history = useHistory();
@@ -26,12 +27,33 @@ const ExchangeReturnDetails = () => {
   const [getexsizeshow, setExsizeshow] = useState(false);
   const [getexsizedata, setExsizedata] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  // const increase = (id) => {
+  //   toggleAmount(id, "inc");
+  // };
+  // const decrease = (id) => {
+  //   toggleAmount(id, "dec");
+  // };
 
-  const increase = (id) => {
-    toggleAmount(id, "inc");
+  const [getQtys, setQtys] = useState(1);
+
+  const inc = () => {
+    setQtys((oldQty) => {
+      let tempQty = oldQty + 1;
+      // if (tempQty > getstock) {
+      //   tempQty = getstock;
+      // }
+      return tempQty;
+    });
   };
-  const decrease = (id) => {
-    toggleAmount(id, "dec");
+
+  const dec = () => {
+    setQtys((oldQty) => {
+      let tempQty = oldQty - 1;
+      if (tempQty < 1) {
+        tempQty = 1;
+      }
+      return tempQty;
+    });
   };
 
   const login = JSON.parse(localStorage.getItem("token"));
@@ -65,11 +87,11 @@ const ExchangeReturnDetails = () => {
     setOrderId2(single_order_details?.order_number);
   }, [single_order_details]);
 
+  console.log("order_lines", single_order_details);
+
   // useEffect(() => {
   //   setOrderId(single_order_details);
   // }, [single_order_details]);
-
-  console.log("log jay", single_order_details);
 
   const handleCheckboxChange = (id) => {
     setIsChecked(true);
@@ -101,13 +123,13 @@ const ExchangeReturnDetails = () => {
   //   }
   // };
 
-  console.log("getproid", getProId);
-  console.log("setExsizeshow", getexsizeshow);
+  // console.log("getproid", getProId);
+  // console.log("setExsizeshow", getexsizeshow);
 
   // console.log("selected", getProId);
   const ExchangePostApi = async () => {
+    console.log("abs");
     const tokens = JSON.parse(localStorage.getItem("token"));
-
     const formData = new FormData();
     formData.append("product_id", getProId);
 
@@ -120,18 +142,17 @@ const ExchangeReturnDetails = () => {
       .post(get_exchangeproduct, formData, {
         headers: {
           Accept: "application/x.uniform.v1+json",
-
-          Authorization: "Bearer " + tokens,
+          Authorization: "Bearer" + tokens,
         },
       })
 
       .catch((error) => console.error(`Error: ${error}`));
     if (response.data.success == 1) {
-      setExsizedata(response.data.data.sizes);
-      setExsizeshow(true);
+      // setExsizedata(response.data.data.sizes);
+      // setExsizeshow(true);
       setProId("");
 
-      console.log("response  ", response.data.success);
+      console.log("response  ", response.data.data.sizes);
       createNotification(
         "success",
         "Success!",
@@ -173,7 +194,6 @@ const ExchangeReturnDetails = () => {
       // setProId("");
       console.log("response  ", response.data.success);
       createNotification("success", "Success!", response.data.message);
-
       history.push("/MyProfile");
     } else if (response.data.success == 0) {
       createNotification("error", "Error!", response.data.message);
@@ -222,13 +242,15 @@ const ExchangeReturnDetails = () => {
             <table className="table table-hover">
               <thead>
                 <tr>
+                  {/* <th>scroll</th> */}
                   <th>Product</th>
                   <th>Price</th>
                   <th>Size</th>
                   <th>
                     Exchange /<br /> Return
                   </th>
-                  {getexsizeshow == true ? <th>Select size</th> : <></>}
+                  {getStatus == 1 ? <th>Select Size</th> : <></>}
+                  {getStatus == 1 ? <th>Select Qty</th> : <></>}
                   <th>Quantity</th>
                   <th>Select</th>
                   <th>Action</th>
@@ -257,7 +279,6 @@ const ExchangeReturnDetails = () => {
                                     width: "96%",
                                   }}
                                   onChange={(e) => setStatus(e.target.value)}>
-                                  .
                                   <option value="" disabled selected>
                                     Select type
                                   </option>{" "}
@@ -273,20 +294,64 @@ const ExchangeReturnDetails = () => {
                                 </select>
                               </div>
                             </td>
+                            {getStatus == 1 ? (
+                              <>
+                                <td>
+                                  <div className="input-row" action="#">
+                                    <select
+                                      className="dropdown_career"
+                                      name="size"
+                                      // id="lang"
+                                      style={{
+                                        background: "transparent",
+                                        width: "96%",
+                                      }}
+                                      onChange={(e) =>
+                                        setStatus(e.target.value)
+                                      }>
+                                      <option value="" disabled selected>
+                                        Select size
+                                      </option>{" "}
+                                      <option value="">S</option>
+                                      <option value="">M</option>
+                                      <option value="">L</option>
+                                      {/* {data.map((item, index) => {
+                                    return (
+                                      <>
+                                        <option value={item.id}>
+                                          {item.name}
+                                        </option>
+                                      </>
+                                    );
+                                  })} */}
+                                    </select>
+                                  </div>
+                                </td>
+                              </>
+                            ) : (
+                              <></>
+                            )}
+
+                            {getStatus == 1 ? (
+                              <>
+                                <td
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                  }}>
+                                  <QtyBtnExg
+                                    getQtys={getQtys}
+                                    inc={inc}
+                                    dec={dec}
+                                  />
+                                </td>
+                              </>
+                            ) : (
+                              <></>
+                            )}
 
                             {getexsizeshow == true ? (
                               <td>
-                                {/* {getexsizedata && getexsizedata.length <= 0 ? <> No size Available. </> : <>
-                                  {getexsizedata.map((item, index) => {
-                                    return (
-                                      <>
-                                        <div>{item.name}</div>
-                                       
-                                      </>
-                                    )
-                                  })}
-                                </>} */}
-
                                 <select
                                   className="dropdown_career"
                                   name="sizes"
@@ -298,7 +363,7 @@ const ExchangeReturnDetails = () => {
                                   onChange={(e) => setSize(e.target.value)}>
                                   <option value="" disabled selected>
                                     Select size
-                                  </option>{" "}
+                                  </option>
                                   {getexsizedata &&
                                     getexsizedata.map((item, index) => {
                                       return (
@@ -314,7 +379,6 @@ const ExchangeReturnDetails = () => {
                             ) : (
                               <></>
                             )}
-
                             <td>
                               <input
                                 type="number"

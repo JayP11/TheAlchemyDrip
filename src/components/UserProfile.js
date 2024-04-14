@@ -41,7 +41,7 @@ const UserProfile = () => {
               </div>
               <div className="col-md-6">
                 <div className="inner_profile_in">
-                  <p>
+                  <p style={{textTransform:"capitalize"}}>
                     Name<span>{logindata.name}</span>
                   </p>
                 </div>
@@ -165,7 +165,7 @@ const Wrapper = styled.div`
     display: inline-block;
     background-color: #eee;
     padding: 30px;
-    min-height: 598px;
+    ${'' /* min-height: 598px; */}
     .row {
       margin-left: -10px;
       margin-right: -10px;

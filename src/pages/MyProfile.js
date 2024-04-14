@@ -26,7 +26,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     var activetabs = localStorage.getItem("activetab");
-    console.log("activetabs", activetabs);
+    // console.log("activetabs", activetabs);
     if (activetabs) {
       var tabInt = parseInt(activetabs);
       changeTab(tabInt);
@@ -72,6 +72,7 @@ const Wrapper = styled.section`
     flex: 0 0 100%;
     max-width: calc(100% - 280px);
     padding-left: 30px;
+    max-height: 530px !important;
   }
   @media screen and (max-width: 980px) {
     flex-wrap: wrap;

@@ -11,6 +11,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useProductsContext } from "../context/products_context";
 import PageHero from "./PageHero";
 import LoginModule from "./LoginModule";
+import { useUserContext } from "../context/user_context";
 
 const CategoryGrid = ({ getdrop, setdrop }) => {
   const { updateFilters } = useFilterContext();
@@ -23,8 +24,9 @@ const CategoryGrid = ({ getdrop, setdrop }) => {
   const [getslug, setslug] = useState("");
   const [getpassword, setpassword] = useState("");
   const [showscreen, setShowlogin] = useState();
+  const { isLogin } = useUserContext();
 
-  let history = useHistory();
+  // let history = useHistory();
 
   // console.log("categories id jay", category);
 
@@ -191,7 +193,14 @@ const CategoryGrid = ({ getdrop, setdrop }) => {
             </div>
           </>
         </ReactModal>
-        <LoginModule showscreen={showscreen} setShowlogin={setShowlogin} />
+        {/* {isLogin && (
+          <li>
+            <Link to="/checkout">checkout</Link>
+          </li>
+        )} */}
+        {!isLogin && (
+          <LoginModule showscreen={showscreen} setShowlogin={setShowlogin} />
+        )}
       </Wrapper>
     </>
   );

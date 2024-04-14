@@ -195,7 +195,9 @@ const UserAddress = (props) => {
   };
   return (
     <main>
-      <Wrapper className="page">
+      <Wrapper
+        style={{ maxHeight: "400px", overflow: "scroll" }}
+        className="page">
         <section className="section-big-py-space b-g-light">
           <div className="col-lg-9 order-lg-last dashboard-content">
             <div className="card card_bg_color">
@@ -246,7 +248,7 @@ const UserAddress = (props) => {
                       <div className="col-md-3">
                         <div
                           className="actions_btns"
-                          style={{ marginLeft: "2rem" }}>
+                          style={{ marginLeft: "1rem" }}>
                           <div className="left_edit">
                             <a
                               href="javascript:void(0);"
