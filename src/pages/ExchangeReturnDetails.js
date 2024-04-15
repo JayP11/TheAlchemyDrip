@@ -4,8 +4,10 @@ import styled from "styled-components";
 import { useOrderContext } from "../context/place_order_context";
 import axios from "axios";
 import {
+  ex_pro_submit,
   get_exchangeproduct,
   getexchangeproduct,
+  getexchangeproductsize,
   return_order_url,
 } from "../utils/constants";
 import createNotification from "../utils/Notification";
@@ -13,6 +15,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import AmountButtons from "../components/AmountButtons";
 import { useCartContext } from "../context/cart_context";
 import QtyBtnExg from "../components/QtyBtnExg";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
 const ExchangeReturnDetails = () => {
   const history = useHistory();
@@ -20,41 +23,20 @@ const ExchangeReturnDetails = () => {
   const [getData, setData] = useState([]);
   const [getStatus, setStatus] = useState();
   const [getSize, setSize] = useState();
+  const [getPrice, setPrice] = useState();
+  const [getInventry, setInventry] = useState();
+  const [getMainPrice, setMainPrice] = useState();
   const [getCampusinput, setCampusinput] = useState("");
   const [getProId, setProId] = useState();
+  const [getOrderlineId, setOrderlineId] = useState();
   const [getOrderId, setOrderId] = useState();
   const [getOrderId2, setOrderId2] = useState();
   const [getexsizeshow, setExsizeshow] = useState(false);
+  const [getexsizeshow2, setExsizeshow2] = useState(false);
   const [getexsizedata, setExsizedata] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  // const increase = (id) => {
-  //   toggleAmount(id, "inc");
-  // };
-  // const decrease = (id) => {
-  //   toggleAmount(id, "dec");
-  // };
 
-  const [getQtys, setQtys] = useState(1);
-
-  const inc = () => {
-    setQtys((oldQty) => {
-      let tempQty = oldQty + 1;
-      // if (tempQty > getstock) {
-      //   tempQty = getstock;
-      // }
-      return tempQty;
-    });
-  };
-
-  const dec = () => {
-    setQtys((oldQty) => {
-      let tempQty = oldQty - 1;
-      if (tempQty < 1) {
-        tempQty = 1;
-      }
-      return tempQty;
-    });
-  };
+  const [getQtys, setQtys] = useState();
 
   const login = JSON.parse(localStorage.getItem("token"));
 
@@ -80,56 +62,50 @@ const ExchangeReturnDetails = () => {
   } = useOrderContext();
 
   const { toggleAmount } = useCartContext();
+  const data1 = JSON.parse(localStorage.getItem("exprodetails"));
+
+  const reloadCount = Number(sessionStorage.getItem("reloadCount")) || 0;
+ 
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    setData(single_order_details?.order_lines);
-    setOrderId(single_order_details);
-    setOrderId2(single_order_details?.order_number);
-  }, [single_order_details]);
+    setData(data1?.order_lines);
+    setOrderId(data1);
+    setOrderId2(data1?.order_number);
+  }, []);
 
-  console.log("order_lines", single_order_details);
+  // console.log("log jay", data1);
 
-  // useEffect(() => {
-  //   setOrderId(single_order_details);
-  // }, [single_order_details]);
-
-  const handleCheckboxChange = (id) => {
+  const handleCheckboxChange = (id, id2, price, mainprice) => {
     setIsChecked(true);
     setIsChecked(!isChecked);
     if (isChecked) {
       setProId(null);
+      setOrderlineId(null);
+      setPrice(null);
+      setMainPrice(null);
     } else {
       setProId(id);
+      setOrderlineId(id2);
+      setPrice(price);
+      setMainPrice(mainprice);
     }
   };
-  // const handleCheckboxChange3 = (qty, qtymax) => {
-  //   console.log("qty is",quantity);
 
-  //   if (qty < qtymax) {
-  //     setQuantity((prevQuantity) => prevQuantity + 1);
-  //   }
-  //   console.log("qty is",quantity);
-  // };
-
-  // const incrementQuantity = () => {
-  //   if (quantity < stock) {
-  //     setQuantity((prevQuantity) => prevQuantity + 1);
-  //   }
-  // };
-
-  // const decrementQuantity = () => {
-  //   if (quantity > 1) {
-  //     setQuantity((prevQuantity) => prevQuantity - 1);
-  //   }
-  // };
+  const handleIncrement = () => {
+    // if (getQtys < totalgetQtys) {
+    setQtys(Number(getQtys) + 1);
+    console.log("grt===?", getQtys);
+    // };
+  };
 
   // console.log("getproid", getProId);
   // console.log("setExsizeshow", getexsizeshow);
 
   // console.log("selected", getProId);
   const ExchangePostApi = async () => {
-    console.log("abs");
     const tokens = JSON.parse(localStorage.getItem("token"));
+
     const formData = new FormData();
     formData.append("product_id", getProId);
 
@@ -142,7 +118,43 @@ const ExchangeReturnDetails = () => {
       .post(get_exchangeproduct, formData, {
         headers: {
           Accept: "application/x.uniform.v1+json",
-          Authorization: "Bearer" + tokens,
+
+          Authorization: "Bearer " + tokens,
+        },
+      })
+
+      .catch((error) => console.error(`Error: ${error}`));
+    if (response.data.success == 1) {
+      setExsizedata(response.data.data.sizes);
+      setExsizeshow(true);
+      // setProId("");
+
+      console.log("response  ", response.data.success);
+      createNotification("success", "Success!", response.data.message);
+      return;
+    } else {
+      createNotification("error", "Error!", "please enter valid data!");
+      return;
+    }
+  };
+  const getProductSize = async (id, id2) => {
+    const tokens = JSON.parse(localStorage.getItem("token"));
+
+    const formData = new FormData();
+    await formData.append("size_id", id2);
+    await formData.append("product_id", id);
+
+    if (getSize == "") {
+      createNotification("error", "Error!", "Please select  size!");
+      return;
+    }
+
+    const response = await axios
+      .post(getexchangeproductsize, formData, {
+        headers: {
+          Accept: "application/x.uniform.v1+json",
+
+          Authorization: "Bearer " + tokens,
         },
       })
 
@@ -150,18 +162,91 @@ const ExchangeReturnDetails = () => {
     if (response.data.success == 1) {
       // setExsizedata(response.data.data.sizes);
       // setExsizeshow(true);
-      setProId("");
+      // setProId("");
+      setInventry(response.data.data.inventory);
 
-      console.log("response  ", response.data.data.sizes);
-      createNotification(
-        "success",
-        "Success!",
-        "form has been successfully submitted"
-      );
+      console.log("response  ", response.data.success);
+      createNotification("success", "Success!", response.data.message);
       return;
     } else {
       createNotification("error", "Error!", "please enter valid data!");
       return;
+    }
+  };
+
+  const finalExchangePostApi = async () => {
+    const tokens = JSON.parse(localStorage.getItem("token"));
+
+    const formData = new FormData();
+    formData.append("product_id", getProId);
+    formData.append("size_id", getSize);
+    formData.append("color_id", 1);
+    formData.append("order_line", getOrderlineId);
+    formData.append("quantity", getQtys);
+    formData.append("main_price", getMainPrice);
+    formData.append("price", getPrice);
+
+    if (getProId == "") {
+      createNotification("error", "Error!", "Please select  getProId!");
+      return;
+    }
+
+    const response = await axios
+      .post(ex_pro_submit, formData, {
+        headers: {
+          Accept: "application/x.uniform.v1+json",
+
+          Authorization: "Bearer " + tokens,
+        },
+      })
+
+      .catch((error) => console.error(`Error: ${error}`));
+    if (response.data.success == 1) {
+      setExsizedata(response.data.data.sizes);
+      setExsizeshow(true);
+      history.push("/MyProfile");
+
+      // setProId("");
+
+      console.log("response  ", response.data.success);
+      createNotification("success", "Success!", response.data.message);
+      return;
+    } else if (response.data.success == 0) {
+      createNotification("error", "Error!", response.data.message);
+      history.push("/MyProfile");
+
+      return;
+    } else {
+      createNotification("error", "Error!", "please enter valid data!");
+      return;
+    }
+  };
+
+  const handleQtyChange = (index, qty, totalqty) => {
+    console.log("getInventry", getInventry);
+    console.log("totalqty", totalqty);
+    if (qty < getInventry) {
+      const updatedArray = [...getData];
+      updatedArray[index].quantity += 1;
+
+      setData(updatedArray);
+      setQtys(updatedArray[index].quantity);
+      // setProId(updatedArray[index].id);
+    } else {
+      console.log("something wrong");
+    }
+  };
+
+  const handleQtyChange2 = (index, qty, totalqty) => {
+    if (qty <= getInventry && qty != 1) {
+      const updatedArray = [...getData];
+      updatedArray[index].quantity -= 1;
+
+      setData(updatedArray);
+      setQtys(updatedArray[index].quantity);
+      // setProId(updatedArray[index].id);
+    } else {
+      console.log("something wrong");
     }
   };
 
@@ -186,12 +271,9 @@ const ExchangeReturnDetails = () => {
           Authorization: "Bearer " + tokens,
         },
       })
-
       .catch((error) => console.error(`Error: ${error}`));
+
     if (response.data.success == 1) {
-      // setExsizedata(response.data.data.sizes);
-      // setExsizeshow(true);
-      // setProId("");
       console.log("response  ", response.data.success);
       createNotification("success", "Success!", response.data.message);
       history.push("/MyProfile");
@@ -242,16 +324,15 @@ const ExchangeReturnDetails = () => {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  {/* <th>scroll</th> */}
                   <th>Product</th>
                   <th>Price</th>
                   <th>Size</th>
                   <th>
                     Exchange /<br /> Return
                   </th>
-                  {getStatus == 1 ? <th>Select Size</th> : <></>}
-                  {getStatus == 1 ? <th>Select Qty</th> : <></>}
-                  <th>Quantity</th>
+                  {getexsizeshow == true ? <th>Select size</th> : <></>}
+                  {getexsizeshow == true ? <th>Quantity</th> : <></>}
+                  {/* <th>Quantity</th> */}
                   <th>Select</th>
                   <th>Action</th>
                 </tr>
@@ -279,6 +360,7 @@ const ExchangeReturnDetails = () => {
                                     width: "96%",
                                   }}
                                   onChange={(e) => setStatus(e.target.value)}>
+                                  .
                                   <option value="" disabled selected>
                                     Select type
                                   </option>{" "}
@@ -294,64 +376,20 @@ const ExchangeReturnDetails = () => {
                                 </select>
                               </div>
                             </td>
-                            {getStatus == 1 ? (
-                              <>
-                                <td>
-                                  <div className="input-row" action="#">
-                                    <select
-                                      className="dropdown_career"
-                                      name="size"
-                                      // id="lang"
-                                      style={{
-                                        background: "transparent",
-                                        width: "96%",
-                                      }}
-                                      onChange={(e) =>
-                                        setStatus(e.target.value)
-                                      }>
-                                      <option value="" disabled selected>
-                                        Select size
-                                      </option>{" "}
-                                      <option value="">S</option>
-                                      <option value="">M</option>
-                                      <option value="">L</option>
-                                      {/* {data.map((item, index) => {
-                                    return (
-                                      <>
-                                        <option value={item.id}>
-                                          {item.name}
-                                        </option>
-                                      </>
-                                    );
-                                  })} */}
-                                    </select>
-                                  </div>
-                                </td>
-                              </>
-                            ) : (
-                              <></>
-                            )}
-
-                            {getStatus == 1 ? (
-                              <>
-                                <td
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                  }}>
-                                  <QtyBtnExg
-                                    getQtys={getQtys}
-                                    inc={inc}
-                                    dec={dec}
-                                  />
-                                </td>
-                              </>
-                            ) : (
-                              <></>
-                            )}
 
                             {getexsizeshow == true ? (
                               <td>
+                                {/* {getexsizedata && getexsizedata.length <= 0 ? <> No size Available. </> : <>
+                                  {getexsizedata.map((item, index) => {
+                                    return (
+                                      <>
+                                        <div>{item.name}</div>
+                                       
+                                      </>
+                                    )
+                                  })}
+                                </>} */}
+
                                 <select
                                   className="dropdown_career"
                                   name="sizes"
@@ -360,10 +398,16 @@ const ExchangeReturnDetails = () => {
                                     background: "transparent",
                                     width: "96%",
                                   }}
-                                  onChange={(e) => setSize(e.target.value)}>
+                                  onChange={(e) => {
+                                    setSize(e.target.value);
+                                    getProductSize(
+                                      item.product_id,
+                                      e.target.value
+                                    );
+                                  }}>
                                   <option value="" disabled selected>
                                     Select size
-                                  </option>
+                                  </option>{" "}
                                   {getexsizedata &&
                                     getexsizedata.map((item, index) => {
                                       return (
@@ -379,33 +423,100 @@ const ExchangeReturnDetails = () => {
                             ) : (
                               <></>
                             )}
-                            <td>
-                              <input
+
+                            {/* <input
                                 type="number"
                                 min="10"
                                 max="100"
                                 value={item.total_quantity}
-                                // onChange={() => {
-                                //     handleCheckboxChange3(item.total_quantity,item.total_quantity);
-                                //   }}
-                              />
-                              {/* <div>
-                                <button onClick={decrementQuantity}>-</button>
-                                <span>{quantity}</span>
-                                <button   onClick={() => {
+                                onChange={() => {
                                     handleCheckboxChange3(item.total_quantity,item.total_quantity);
-                                  }}>+</button>
-                              </div> */}
-                              {/* <input type="number" va  /> */}
-                              {/* <AmountButtons amount={item.price} increase={increase} decrease={decrease} /> */}
-                            </td>
+                                  }}
+                              /> */}
+
+                            {/* <QtyBtnExg
+                                    getQtys={item.quantity}
+                                    totalgetQtys={item.total_quantity}
+                                    setQtys={setQtys}
+                                    inc={inc}
+                                    dec={dec}
+                                  /> */}
+
+                            {getexsizeshow == true ? (
+                              <>
+                                <td>
+                                  <div
+                                    className="quantity-box"
+                                    style={{ padding: "0px" }}>
+                                    {/* <b>Quantity</b> */}
+                                    <div
+                                      className="qty"
+                                      style={{
+                                        display: "flex",
+                                        border: "2px solid",
+                                        gap: "10px",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                      }}>
+                                      <button
+                                        style={{
+                                          background: "white",
+                                          border: "0px",
+                                          display: "flex",
+                                        }}
+                                        type="button"
+                                        className="qty-btn"
+                                        onClick={() => {
+                                          handleQtyChange2(
+                                            index,
+                                            item.quantity,
+                                            item.total_quantity
+                                          );
+                                        }}>
+                                        <FaMinus />
+                                      </button>
+                                      <p
+                                        className="qty"
+                                        style={{ marginBottom: "0px" }}>
+                                        {item.quantity}
+                                      </p>
+                                      <button
+                                        style={{
+                                          background: "white",
+                                          border: "0px",
+                                          display: "flex",
+                                        }}
+                                        type="button"
+                                        className="qty-btn"
+                                        onClick={() => {
+                                          handleQtyChange(
+                                            index,
+                                            item.quantity,
+                                            item.total_quantity
+                                          );
+                                        }}>
+                                        <FaPlus />
+                                      </button>
+                                    </div>
+                                  </div>
+                                </td>
+                              </>
+                            ) : (
+                              <></>
+                            )}
+
                             <td>
                               <div>
                                 <input
                                   type="checkbox"
                                   checked={item.isChecked}
                                   onChange={() => {
-                                    handleCheckboxChange(item.id);
+                                    handleCheckboxChange(
+                                      item.product_id,
+                                      item.id,
+                                      item.price,
+                                      item.main_price
+                                    );
                                   }}
                                 />
                               </div>
@@ -414,8 +525,13 @@ const ExchangeReturnDetails = () => {
                               <button
                                 className="btn"
                                 onClick={() => {
-                                  if (getStatus == 1) {
+                                  if (
+                                    getexsizeshow == false &&
+                                    getStatus == 1
+                                  ) {
                                     ExchangePostApi();
+                                  } else if (getexsizeshow == true) {
+                                    finalExchangePostApi();
                                   } else if (getStatus == 2) {
                                     returnPostApi();
                                   }

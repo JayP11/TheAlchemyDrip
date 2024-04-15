@@ -111,7 +111,8 @@ export const category_verify = BaseUrl + "category-verify";
 export const get_category = BaseUrl + "get-category";
 export const product = BaseUrl + "product";
 export const get_exchangeproduct = BaseUrl + "getexchangeproduct";
-
+export const ex_pro_submit = BaseUrl + "ex_pro_submit";
+export const getexchangeproductsize = BaseUrl + "getexchangeproductsize";
 // export const single_product_url = `https://course-api.com/react-store-single-product?id=`;
 
 // screen type

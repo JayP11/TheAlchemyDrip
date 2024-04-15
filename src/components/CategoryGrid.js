@@ -118,7 +118,8 @@ const CategoryGrid = ({ getdrop, setdrop }) => {
           <div className="underline"></div>
         </div> */}
           <div className="row">
-            {category.slice(5, 6).map((c, index) => {
+            {/* {category.slice(5, 6).map((c, index) => { */}
+            {category.map((c, index) => {
               return (
                 <div
                   style={{ cursor: "pointer" }}

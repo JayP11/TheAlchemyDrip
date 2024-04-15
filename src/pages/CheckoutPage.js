@@ -570,7 +570,7 @@ const CheckoutPage = () => {
 
                                   <label>Cash On Delivery</label>
                                 </div>
-                                <div className="radio-option">
+                                {/* <div className="radio-option">
                                   <input
                                     type="radio"
                                     value="2"
@@ -581,7 +581,7 @@ const CheckoutPage = () => {
                                     }}
                                   />
                                   <label>Pick from store</label>
-                                </div>
+                                </div> */}
                                 <div className="radio-option">
                                   <input
                                     type="radio"

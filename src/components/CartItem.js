@@ -5,6 +5,7 @@ import AmountButtons from "./AmountButtons";
 import { FaTrash } from "react-icons/fa";
 import { useCartContext } from "../context/cart_context";
 import { Link } from "react-router-dom";
+import IImages from "../constants/IImages";
 
 const CartItem = ({
   id,
@@ -29,10 +30,20 @@ const CartItem = ({
   return (
     <Wrapper>
       <div className="title">
-        <img src={image[0].image} alt={name} />
-        {/* <img src={image} alt={name} /> */}
+        {image.length <= 0 ? (
+          <>
+            <img src={IImages.ImageComingSoon} alt={name} />
+          </>
+        ) : (
+          <>
+            {" "}
+            <img src={image[0].image} alt={name} />
+          </>
+        )}
+        {/* <img src={image[0].image} alt={name} /> */}
         <div>
           <h5 className="name">{name}</h5>
+
           {/* {color !== "no" && (
             <p className="color">
               color : <span style={{ background: color }}></span>

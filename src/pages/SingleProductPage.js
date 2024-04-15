@@ -170,9 +170,9 @@ const SingleProductPage = () => {
       <div
         className="section section-center page"
         style={{ paddingTop: "30px" }}>
-        <Link to="/products" className="btn-back-to-product">
+        {/* <Link to="/products" className="btn-back-to-product">
           back to products
-        </Link>
+        </Link> */}
         <div className="product-center" style={{ gap: "1.5rem" }}>
           {/* gallery */}
           <ProductImages images={product_images} />
@@ -189,9 +189,9 @@ const SingleProductPage = () => {
               {formatPrice(value ? value : price)}
             </h5>
 
-            <h5 className="pricee" style={{ color: "black" }}>
+            {/* <h5 className="pricee" style={{ color: "black" }}>
               {formatPrice(value1 ? value1 : wholesale_price)}
-            </h5>
+            </h5> */}
             {/* <div>
               <b>Available : </b>
               {getcondition === true ? (
@@ -200,15 +200,21 @@ const SingleProductPage = () => {
                 <>{inver_index > 0 ? "In Stock" : "Out of Stock"}</>
               )}
             </div> */}
-            <div className="qty_map_main">
+            <div
+              className="qty_map_main"
+              style={{
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}>
               <b>Available in : </b>
-              {details &&
-                details.map((item, index) => {
-                  return (
-                    <div>
+              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                {details &&
+                  details.map((item, index) => {
+                    return (
                       <button
                         className="quantity"
                         style={{
+                          alignItems: "center",
                           backgroundColor:
                             activeButtonIndex === index
                               ? "var(--clr-primary-darkred)"
@@ -236,9 +242,9 @@ const SingleProductPage = () => {
                         }}>
                         {item.size_name}
                       </button>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+              </div>
             </div>
             {getcondition === true ? (
               <>
@@ -267,7 +273,12 @@ const SingleProductPage = () => {
             )}
             <div className="description-part-main">
               <div className="description-part">
-                <p className="info_last">
+                <p
+                  className="info_last"
+                  style={{
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                  }}>
                   <b>Description : </b>
                   <p
                     style={{ marginBottom: "0px" }}
@@ -683,7 +694,7 @@ const Wrapper = styled.main`
   @media screen and (max-width: 991px) {
     .info_last {
       grid-template-columns: none;
-      height: 15px;
+      ${"" /* height: 15px; */}
     }
   }
 `;
