@@ -62,17 +62,30 @@ const ExchangeReturnDetails = () => {
   } = useOrderContext();
 
   const { toggleAmount } = useCartContext();
-  const data1 = JSON.parse(localStorage.getItem("exprodetails"));
+  // const data1 = JSON.parse(localStorage.getItem("exprodetails"));
 
-  const reloadCount = Number(sessionStorage.getItem("reloadCount")) || 0;
- 
   const [loaded, setLoaded] = useState(false);
+  const reloadCount = Number(sessionStorage.getItem("reloadCount")) || 0;
 
+  // useEffect(() => {
+  //   if (reloadCount < 2) {
+  //     sessionStorage.setItem("reloadCount", String(reloadCount + 1));
+  //     window.location.reload();
+  //   } else {
+  //     sessionStorage.removeItem("reloadCount");
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   setData(data1?.order_lines);
+  //   setOrderId(data1);
+  //   setOrderId2(data1?.order_number);
+  // }, []);
   useEffect(() => {
-    setData(data1?.order_lines);
-    setOrderId(data1);
-    setOrderId2(data1?.order_number);
-  }, []);
+    setData(single_order_details?.order_lines);
+    setOrderId(single_order_details);
+    setOrderId2(single_order_details?.order_number);
+  }, [single_order_details]);
 
   // console.log("log jay", data1);
 
@@ -105,7 +118,6 @@ const ExchangeReturnDetails = () => {
   // console.log("selected", getProId);
   const ExchangePostApi = async () => {
     const tokens = JSON.parse(localStorage.getItem("token"));
-
     const formData = new FormData();
     formData.append("product_id", getProId);
 
@@ -267,7 +279,6 @@ const ExchangeReturnDetails = () => {
       .post(return_order_url, formData, {
         headers: {
           Accept: "application/x.uniform.v1+json",
-
           Authorization: "Bearer " + tokens,
         },
       })
@@ -574,18 +585,7 @@ const Wrapper = styled.div`
   gap: 1rem;
   overflow: scroll;
   flex-direction: column;
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
-    opacity: 1;
-  }
-
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-  }
+ 
   input {
     padding: "1rem";
     border: "1px solid";

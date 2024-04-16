@@ -60,12 +60,59 @@ const NavbarHome = ({ getdrop }) => {
             <img
               src={IImages.logo}
               alt=""
-              style={{ height: "85px", objectFit: "contain" }}
+              style={{ height: "85px", width: "120px", objectFit: "contain" }}
             />
           </Link>
-          <button type="button" className="nav-toggle" onClick={openSideBar}>
-            <FaBars />
-          </button>
+          <div className="nav-toggle nav_toggle_edit">
+            <button
+              type="button"
+              onClick={openSideBar}
+              style={{ background: "white", border: "none" }}>
+              <FaBars />
+            </button>
+            {isLogin ? (
+              <div className="dropdown">
+                <Link className="nav-linkk nav_link_position_top">
+                  Sections&nbsp;
+                  <i className="fa fa-caret-down"></i>
+                </Link>
+                <div className="dropdown-content nav_link_position_bottom">
+                  {getdata2 && getdata2.length > 0 ? (
+                    getdata2.map((c, index) => {
+                      return (
+                        <>
+                          <Link to={`/Propage/${c.slug}`}> {c.name}</Link>
+                          {/* <Link
+                        to={`/propage/${c.slug}`}
+                        style={{ cursor: "pointer" }}
+                        className="col-md-4"
+                        key={index}
+                        onClick={() => {
+                          // setModal(true);
+                        }}>
+                        <div className="a">
+                          <img
+                            src={c.image_full_path}
+                            alt=""
+                            style={{ marginBottom: "0px !important" }}
+                          />
+                          <button type="button" name="category" value={c.name}>
+                            {c.name}
+                          </button>
+                        </div>
+                      </Link> */}
+                        </>
+                      );
+                    })
+                  ) : (
+                    <p>No data found</p>
+                  )}
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
         <ul className="nav-links">
           {links.map((link) => {
@@ -167,6 +214,11 @@ const NavContainer = styled.nav`
       margin-left: -15px;
     }
   }
+
+  .nav_toggle_edit {
+    display: none;
+  }
+
   .nav-toggle {
     background: transparent;
     border: transparent;
@@ -185,10 +237,26 @@ const NavContainer = styled.nav`
     display: none;
   }
 
+  @media (max-width: 992px) {
+    .nav_toggle_edit {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .nav_link_position_top {
+      position: relative;
+    }
+    .nav_link_position_bottom {
+      position: absolute;
+      right: 10px;
+    }
+  }
   @media (min-width: 992px) {
     .nav-toggle {
       display: none;
     }
+
     .nav-center {
       display: grid;
       grid-template-columns: auto 1fr auto;

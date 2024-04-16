@@ -28,7 +28,12 @@ const CartItem = ({
   };
 
   return (
-    <Wrapper>
+    <Wrapper
+      style={{
+        border: "1px solid",
+        padding: "1rem",
+        borderRadius: "10px",
+      }}>
       <div className="title">
         {image.length <= 0 ? (
           <>
@@ -68,6 +73,7 @@ const CartItem = ({
         onClick={() => {
           removeItem(id);
         }}>
+        
         <FaTrash />
       </button>
     </Wrapper>
@@ -149,7 +155,9 @@ const Wrapper = styled.article`
     background: transparent;
     border: transparent;
     letter-spacing: var(--spacing);
-    background: var(--clr-red-dark);
+    ${"" /* background: var(--clr-primary-darkred); */}
+    background: indianred;
+    ${"" /* background: var(--clr-red-dark); */}
     width: 1.5rem;
     height: 1.5rem;
     display: flex;

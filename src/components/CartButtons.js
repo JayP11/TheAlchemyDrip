@@ -22,7 +22,7 @@ const CartButtons = () => {
   //getting state from sidebar reducer for open and close
   const { closeSideBar } = useProductsContext();
   const { total_items } = useCartContext();
-  // aliasgargandhi00@gmail.com
+// aliasgargandhi00@gmail.com
   //123456
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const CartButtons = () => {
       {isLogin ? (
         <div className="dropdown" style={{ overflow: "visible" }}>
           <FaRegUser className="FaRegUser_icon" />
-          <div className="dropdown-content">
+          <div className="dropdown-content dropdown_content_position">
             <Link to="/MyProfile" onClick={closeSideBar}>
               <FaUserCircle /> My Account
             </Link>
@@ -114,6 +114,10 @@ const Wrapper = styled.div`
 
   .FaRegUser_icon {
     font-size: 1.5rem;
+    position: relative;
+  }
+  .dropdown_content_position {
+    right: 10px;
   }
   .cart-btn {
     font-size: 1.5rem;
@@ -198,6 +202,10 @@ const Wrapper = styled.div`
     visibility: visible;
   }
   @media (max-width: 991px) {
+    .dropdown_content_position {
+      left: 56px;
+      width: 100px;
+    }
     .FaRegUser_icon {
       font-size: 24px;
     }

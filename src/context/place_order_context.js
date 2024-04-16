@@ -109,6 +109,7 @@ export const OrderProvider = ({ children }) => {
       const responses = response.data;
       if (responses.success == 1) {
         dispatch({ type: GET_ORDER_SUCCESS, payload: responses.records });
+        console.log("orderstatus", responses.success);
       }
     } catch (error) {
       console.log("plaACE error ", error);
@@ -154,7 +155,7 @@ export const OrderProvider = ({ children }) => {
       const responses = response.data;
       if (responses.success == 1) {
         dispatch({ type: GET_SINGLE_ORDER_DETILS, payload: responses.records });
-        localStorage.setItem("exprodetails", JSON.stringify(responses.records));
+        // localStorage.setItem("exprodetails", JSON.stringify(responses.records));
       }
     } catch (error) {
       console.log("plaACE error ", error);

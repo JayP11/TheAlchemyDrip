@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/TheAlchemyDrip/static/css/main.f171d59a.chunk.css",
-    "main.js": "/TheAlchemyDrip/static/js/main.201cec8f.chunk.js",
-    "main.js.map": "/TheAlchemyDrip/static/js/main.201cec8f.chunk.js.map",
+    "main.css": "/TheAlchemyDrip/static/css/main.91e3f23c.chunk.css",
+    "main.js": "/TheAlchemyDrip/static/js/main.6ad52ff3.chunk.js",
+    "main.js.map": "/TheAlchemyDrip/static/js/main.6ad52ff3.chunk.js.map",
     "runtime-main.js": "/TheAlchemyDrip/static/js/runtime-main.3838810e.js",
     "runtime-main.js.map": "/TheAlchemyDrip/static/js/runtime-main.3838810e.js.map",
     "static/css/2.3f7e84ae.chunk.css": "/TheAlchemyDrip/static/css/2.3f7e84ae.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.2e02261a.chunk.js.map": "/TheAlchemyDrip/static/js/2.2e02261a.chunk.js.map",
     "index.html": "/TheAlchemyDrip/index.html",
     "static/css/2.3f7e84ae.chunk.css.map": "/TheAlchemyDrip/static/css/2.3f7e84ae.chunk.css.map",
-    "static/css/main.f171d59a.chunk.css.map": "/TheAlchemyDrip/static/css/main.f171d59a.chunk.css.map",
+    "static/css/main.91e3f23c.chunk.css.map": "/TheAlchemyDrip/static/css/main.91e3f23c.chunk.css.map",
     "static/js/2.2e02261a.chunk.js.LICENSE.txt": "/TheAlchemyDrip/static/js/2.2e02261a.chunk.js.LICENSE.txt",
     "static/media/Return.9f6ac149.png": "/TheAlchemyDrip/static/media/Return.9f6ac149.png",
     "static/media/add_ticket.3bb29aaf.png": "/TheAlchemyDrip/static/media/add_ticket.3bb29aaf.png",
@@ -24,7 +24,7 @@
     "static/js/runtime-main.3838810e.js",
     "static/css/2.3f7e84ae.chunk.css",
     "static/js/2.2e02261a.chunk.js",
-    "static/css/main.f171d59a.chunk.css",
-    "static/js/main.201cec8f.chunk.js"
+    "static/css/main.91e3f23c.chunk.css",
+    "static/js/main.6ad52ff3.chunk.js"
   ]
 }
