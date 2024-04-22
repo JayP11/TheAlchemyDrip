@@ -322,6 +322,21 @@ button.close-button {
   display: block;
 }
 
+.zoom_image {
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+}
+@media screen and (max-width: 830px) {
+  .zoom_image {
+    height: 250px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .zoom_image {
+    height: 170px;
+  }
+}
 /*  */
 @media screen and (max-width: 767px) {
   .title h2,

@@ -22,9 +22,9 @@ const CartContent = () => {
       })}
       <hr />
       <div className="link-container">
-        {/* <Link to="/products" className=" btn">
+        <Link to="/products" className=" btn">
           Continue Shopping
-        </Link> */}
+        </Link>
         <button
           type="button"
           className="link-btn clear-btn"

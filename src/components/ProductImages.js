@@ -88,7 +88,7 @@ const ProductImages = ({ images = [{ image: "" }] }) => {
           }}>
           <div>
             <img
-              style={{ height: "400px", width: "100%", objectFit: "cover" }}
+              className="zoom_image"
               src={images.length <= 0 ? IImages.ImageComingSoon : main.image}
               alt=""
             />
@@ -136,6 +136,7 @@ const ProductImages = ({ images = [{ image: "" }] }) => {
 
 const Wrapper = styled.section`
   display: flex;
+
   .main-image {
     height: 500px;
     max-width: calc(100% - 200px);
@@ -145,6 +146,7 @@ const Wrapper = styled.section`
     margin-top: 15px;
     border-radius: var(--radius);
   }
+
   img {
     width: 340px;
     ${"" /* width: 100%; */}

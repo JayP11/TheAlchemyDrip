@@ -84,26 +84,33 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
 
   function mSignUp() {
     if (email == "") {
-      Notification("error", "Error!", "Please enter your email ID!");
+      alert("Please enter your email ID!");
+      // Notification("error", "Error!", "Please enter your email ID!");
       return;
     } else if (regEx.test(email) == false) {
-      Notification("error", "Error!", "Please enter valid email id!");
+      // Notification("error", "Error!", "Please enter valid email id!");
+      alert("Please enter valid email id!");
       return;
     } else if (password == "") {
-      Notification("error", "Error!", "Please enter your password!");
+      // Notification("error", "Error!", "Please enter your password!");
+      alert("Please enter your password!");
       return;
     } else if (username == "") {
-      Notification("error", "Error!", "Please enter your name!");
+      // Notification("error", "Error!", "Please enter your name!");
+      alert("Please enter your name!");
       return;
     } else if (mobile == "") {
-      Notification("error", "Error!", "Please enter your number!");
+      // Notification("error", "Error!", "Please enter your number!");
+      alert("Error!", "Please enter your number!");
       return;
     } else if (getDivision == "") {
-      Notification("error", "Error!", "Please enter your Division!");
+      // Notification("error", "Error!", "Please enter your Division!");
+      alert("Please enter your Division!");
       return;
-    } else if (getRoll == "") {
-      Notification("error", "Error!", "Please enter your Roll number!");
-      return;
+      // }
+      // else if (getRoll == "") {
+      //   Notification("error", "Error!", "Please enter your Roll number!");
+      //   return;
     } else if (getCampusinput == "") {
       Notification("error", "Error!", "Please enter select campus!");
       return;
@@ -298,7 +305,7 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
                         onChange={(e) => setDivision(e.target.value)}
                       />
                     </div>
-                    <div className="input-row" style={{ marginBottom: "1rem" }}>
+                    {/* <div className="input-row" style={{ marginBottom: "1rem" }}>
                       <MdFormatListNumbered />
 
                       <label>Roll number</label>
@@ -308,7 +315,7 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
                         value={getRoll}
                         onChange={(e) => setRoll(e.target.value)}
                       />
-                    </div>
+                    </div> */}
                     <div className="input-row" action="#">
                       <MdSchool />
                       <label>Campus</label>
@@ -403,7 +410,7 @@ const Wrapper = styled.div`
   grid-template-columns: 2fr 2fr 2fr 2fr;
   align-items: center;
   width: 225px;
-
+  z-index: -10;
   .cart-btn {
     color: var(--clr-white);
     font-size: 1.5rem;

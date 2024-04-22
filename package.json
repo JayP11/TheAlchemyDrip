@@ -13,7 +13,7 @@
     "antd": "^4.16.7",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
-    "razorpay": "^2.0.7",
+    "razorpay": "^2.9.2",
     "rc-input-number": "^9.0.0",
     "react": "^17.0.1",
     "react-accessible-accordion": "^3.3.5",

@@ -195,15 +195,14 @@ const SingleProductPage = () => {
             {/* <h5 className="pricee" style={{ color: "black" }}>
               {formatPrice(value1 ? value1 : wholesale_price)}
             </h5> */}
-            {/* <div>
+            <div>
               <b>Available : </b>
-
               {getcondition === true ? (
                 <>{getstock > 0 ? "In Stock" : "Out of Stock"}</>
               ) : (
                 <>{inver_index > 0 ? "In Stock" : "Out of Stock"}</>
               )}
-            </div> */}
+            </div>
             <div
               className="qty_map_main"
               style={{
@@ -260,7 +259,7 @@ const SingleProductPage = () => {
                     getstock={getstock}
                     sizeid={sizeId}
                   />
-              )}
+                )}
               </>
             ) : (
               <>
@@ -287,7 +286,7 @@ const SingleProductPage = () => {
                   <p
                     style={{ marginBottom: "0px" }}
                     dangerouslySetInnerHTML={{
-                      __html: description,  
+                      __html: description,
                     }}></p>
                 </p>
                 <hr />

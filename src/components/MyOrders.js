@@ -233,7 +233,7 @@ const MyOrders = () => {
     setOrderId2(single_order_details?.order_number);
   }, [single_order_details]);
 
-  // console.log("log jay", data1);
+  console.log("log jay", single_order_details);
 
   const handleCheckboxChange = (id, id2, price, mainprice) => {
     setIsChecked(true);
@@ -260,7 +260,6 @@ const MyOrders = () => {
 
   // console.log("getproid", getProId);
   // console.log("setExsizeshow", getexsizeshow);
-
   // console.log("selected", getProId);
   const ExchangePostApi = async () => {
     const tokens = JSON.parse(localStorage.getItem("token"));
@@ -353,7 +352,6 @@ const MyOrders = () => {
       .post(ex_pro_submit, formData, {
         headers: {
           Accept: "application/x.uniform.v1+json",
-
           Authorization: "Bearer " + tokens,
         },
       })
@@ -383,7 +381,8 @@ const MyOrders = () => {
   const handleQtyChange = (index, qty, totalqty) => {
     console.log("getInventry", getInventry);
     console.log("totalqty", totalqty);
-    if (qty < getInventry) {
+    // if (qty < getInventry) {
+    if (qty < totalqty) {
       const updatedArray = [...getData];
       updatedArray[index].quantity += 1;
 
@@ -945,6 +944,7 @@ const MyOrders = () => {
                       <thead>
                         <tr>
                           <th>Product</th>
+                          <th>Quantity</th>
                           <th>Price</th>
                           <th>Size</th>
                           <th>
@@ -967,6 +967,7 @@ const MyOrders = () => {
                                 <>
                                   <tbody>
                                     <td>{item.product_name}</td>
+                                    <td>{item.total_quantity}</td>
                                     <td>{item.price}</td>
                                     <td>{item.size}</td>
                                     <td>

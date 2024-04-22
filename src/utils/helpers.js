@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 export const formatPrice = (number) => {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",

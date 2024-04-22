@@ -248,13 +248,14 @@ const CheckoutPage = () => {
       // key: "rzp_live_EGIRrud6dPuubI",
       // key: "rzp_test_PcJbHDcGhcGxlv",
       // key: "rzp_test_OP1ZatqCXyH2Zq", //test
-      key: "rzp_live_0w1C4me9f1dfrt",
+      // key: "rzp_live_0w1C4me9f1dfrt",
+ key: "rzp_test_A4BHB5UpfyPSSU",
 
       currency: "INR",
-      order_id: order_id,
+      // order_id: order_id,
       name: "The Alchemy Drip",
       description: "Transaction",
-      amount: total_amount,
+      amount: total_amount * 100,
       prefill: {
         name: names,
       },
@@ -560,7 +561,7 @@ const CheckoutPage = () => {
                           <div className="upper-box">
                             <div className="payment-options">
                               <ul>
-                                <div className="radio-option">
+                                {/* <div className="radio-option">
                                   <input
                                     type="radio"
                                     value="3"
@@ -569,7 +570,7 @@ const CheckoutPage = () => {
                                   />
 
                                   <label>Cash On Delivery</label>
-                                </div>
+                                </div> */}
                                 {/* <div className="radio-option">
                                   <input
                                     type="radio"

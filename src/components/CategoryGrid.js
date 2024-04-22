@@ -19,7 +19,7 @@ const CategoryGrid = ({ getdrop, setdrop }) => {
   const { categories } = useHomeContext();
   const { category } = useHomeContext();
   const [getModal, setModal] = useState(false);
-  const [getModal1, setModal1] = useState(false);
+  // const [getModal1, setModal1] = useState(false);
   const [getCategoryId, setCategoryId] = useState(false);
   const [getslug, setslug] = useState("");
   const [getpassword, setpassword] = useState("");
