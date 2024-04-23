@@ -58,13 +58,14 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
 
   const mLogin = async () => {
     if (email == "") {
-      Notification("error", "Error!", "Please enter your email ID!");
+      alert("Please enter your email ID!");
+      // Notification("error", "Error!", "Please enter your email ID!");
       return;
     } else if (regEx.test(email) == false) {
-      Notification("error", "Error!", "Please enter valid email id!");
+      alert("Please enter valid email id!");
       return;
     } else if (password == "") {
-      Notification("error", "Error!", "Please enter your password!");
+      alert("Please enter your password!");
       return;
     }
 
@@ -112,7 +113,7 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
       //   Notification("error", "Error!", "Please enter your Roll number!");
       //   return;
     } else if (getCampusinput == "") {
-      Notification("error", "Error!", "Please enter select campus!");
+      alert("Please enter select campus!");
       return;
     }
     var params = {
@@ -334,6 +335,7 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
                           <></>
                         ) : (
                           <>
+                            <option value={""}>Select Campus</option>
                             {getCampus.map((item, index) => {
                               return (
                                 <>

@@ -24,6 +24,7 @@ import ProductsPage from "./pages/ProductsPage";
 import ProPage from "./pages/ProPage";
 import ExchangeReturnPg from "./pages/ExchangeReturnPg";
 import ExchangeReturnDetails from "./pages/ExchangeReturnDetails";
+import ExchangeReturnPolicy from "./pages/exchangeReturnPolicy/ExchangeReturnPolicy";
 
 function App() {
   return (
@@ -94,6 +95,10 @@ function App() {
           <Route exact path="/ShippingDeliveryPolicy">
             <Navbar />
             <ShippingDeliveryPolicy />
+          </Route>
+          <Route exact path="/ExchangeReturnPolicy">
+            <NavbarHome />
+            <ExchangeReturnPolicy />
           </Route>
           <Route exact path="/Propage/:id">
             {/* <Navbar /> */}

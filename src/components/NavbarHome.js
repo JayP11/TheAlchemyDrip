@@ -72,10 +72,10 @@ const NavbarHome = ({ getdrop }) => {
             </button>
             {isLogin ? (
               <div className="dropdown">
-                <Link className="nav-linkk nav_link_position_top">
+                <div className="nav-linkk nav_link_position_top">
                   Sections&nbsp;
                   <i className="fa fa-caret-down"></i>
-                </Link>
+                </div>
                 <div className="dropdown-content nav_link_position_bottom">
                   {getdata2 && getdata2.length > 0 ? (
                     getdata2.map((c, index) => {

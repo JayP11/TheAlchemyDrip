@@ -85,16 +85,19 @@ const Footer = () => {
                           <Link to="/">Shipping & Delivery Policy</Link>
                         </li> */}
                         <li>
-                          <Link to="/">Exchange Return And Refund</Link>
+                          <Link to="/ExchangeReturnPolicy">
+                            Exchange Return And Refund
+                          </Link>
                         </li>
                         <li>
                           {/* <a href="javascript:void(0)">Terms and Condition</a> */}
-                          <Link to="/TermsCondition">Terrm & Condition</Link>
+                          <Link to="/TermsCondition">
+                            Terrm & Condition & Privacy Policy
+                          </Link>
                         </li>
-                        <li>
-                          {/* <a href="javascript:void(0)">Privacy Policy</a> */}
+                        {/* <li>
                           <Link to="/PrivacyPolicy">Privacy Policy</Link>
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                   </div>

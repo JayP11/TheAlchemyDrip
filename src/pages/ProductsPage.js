@@ -98,7 +98,7 @@ const ProductsPage = () => {
                       onClick={() => {
                         // setModal(true);
                       }}>
-                      <div className="a">
+                      <div className="Propage_img_main">
                         <img
                           src={c.image_full_path}
                           alt=""
@@ -145,8 +145,7 @@ const ProductsPage = () => {
               <div>
                 <button
                   className="btn"
-                  style={{ width: "100%", margin: "0px" }}
-                 >
+                  style={{ width: "100%", margin: "0px" }}>
                   Submit
                 </button>
               </div>
@@ -199,7 +198,6 @@ const ProductsPage = () => {
   );
 };
 
-
 const Wrapper = styled.section`
   background: var(--clr-grey-10);
   ${"" /* padding: 60px 0 0 0; */}
@@ -243,7 +241,7 @@ const Wrapper = styled.section`
     justify-content: center;
   }
   .col-md-4 {
-    height: 150px;
+    ${'' /* height: 150px; */}
     width: 150px;
     -ms-flex: 0 0 33.333333%;
     flex: 0 0 33.333333%;
@@ -253,7 +251,10 @@ const Wrapper = styled.section`
     ${"" /* margin-bottom: 30px; */}
     position: relative;
     overflow: hidden;
-    .a {
+    .Propage_img_main {
+      height: 200px;
+    }
+    .Propage_img_main {
       img {
         ${"" /* max-width: 100%; */}
         height:100%;

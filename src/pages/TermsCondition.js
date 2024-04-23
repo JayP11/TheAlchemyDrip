@@ -9,31 +9,43 @@ const TermsCondition = () => {
         <section className="sec-privacy-policy">
           <div className="con-privacy-policy">
             <h3 className="privacy-policy-heading">Terms & Condition</h3>
-            <p className="privacy-policy-subheading-txt">
-              The Website Owner being The Alchemy Drip, including subsidiaries
-              and affiliates (“Website” or “Website Owner” or “we” or “us” or
-              “our”) provides the information contained on the website or any of
-              the pages comprising the website (“website”) to visitors
-              (“visitors”) (cumulatively referred to as “you” or “your”
-              hereinafter) subject to the terms and conditions set out in these
-              website terms and conditions, the privacy policy and any other
-              relevant terms and conditions, policies and notices which may be
-              applicable to a specific section or module of the website.
-            </p>
-            <p className="privacy-policy-subheading-txt">
-              Welcome to our website www.TheAlchemyDrip.com which is owned by
-              The Alchemy Drip. If you continue to browse and use this website
-              you are agreeing to comply with and be bound by the following
-              terms and conditions of use, which together with our privacy
-              policy govern The Alchemy Drip's relationship with you in relation
-              to this website.
-            </p>
-            <p className="privacy-policy-subheading-txt">
-              The term 'The Alchemy Drip' or 'us' or 'we' refers to the owner of
-              the website with registered/operational office. The term 'you'
-              refers to the user or viewer of our website.
-            </p>
-            <h4 className="privacy-policy-subheading">
+            <ul className="privacy-policy-subheading-list-flex">
+              <li className="privacy-policy-subheading-txt">
+                Bank account details provided by the customer would be final and
+                any error in the details provided by the customer would not be
+                the responsibility of the brand.
+              </li>
+              <li className="privacy-policy-subheading-txt">
+                If you have received an SMS or EMAIL of order delivered status
+                and if it's not received by you, please contact us within 24
+                hours.
+              </li>
+              <li className="privacy-policy-subheading-txt">
+                The customer will be under an obligation to take utmost care of
+                the product(s) whilst the products are in their possession. This
+                includes all of the product(s) instructions, documents and
+                wrappings while returning the product(s) in the same condition
+                as received.
+              </li>
+              <li className="privacy-policy-subheading-txt">
+                In circumstances where the customer feels that the product does
+                not conform to the standards at the time of delivery, they shall
+                promptly contact us via on Whatsapp: +91 8296485534 with details
+                of the product and its damage within 1 day of receiving the
+                products; whereon, the customer will receive instructions from
+                us.
+              </li>
+              <li className="privacy-policy-subheading-txt">
+                Upon return of the product, we will fully examine it and notify
+                the customer of their right to a refund (if any) via
+                e-mail/whatsapp within a reasonable period of time. We aim to
+                process the refund as soon as possible and, in any case, within
+                30 working days from the day, we confirmed to the customer via
+                e-mail that they are entitled to a refund.
+              </li>
+            </ul>
+
+            {/* <h4 className="privacy-policy-subheading">
               The use of this website is subject to the following terms of use:
             </h4>
             <ul className="privacy-policy-subheading-list-flex">
@@ -96,7 +108,7 @@ const TermsCondition = () => {
               decline of authorization for any Transaction, on Account of the
               Cardholder having exceeded the preset limit mutually agreed by us
               with our acquiring bank from time to time
-            </p>
+            </p> */}
           </div>
         </section>
       </Wrapper>

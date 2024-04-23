@@ -86,7 +86,8 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem("userid", JSON.stringify(logindata.user.id));
         localStorage.setItem("token", JSON.stringify(logindata.token));
       } else {
-        Notification("error", "Error!", logindata.message + "");
+        alert(logindata.message + "");
+        // Notification("error", "Error!", logindata.message + "");
         dispatch({ type: GET_LOGIN_ERROR });
       }
     } catch (error) {
