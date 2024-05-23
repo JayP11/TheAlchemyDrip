@@ -115,6 +115,7 @@ const products_reducer = (state, action) => {
     };
   }
   return state;
+  // eslint-disable-next-line no-unreachable
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 

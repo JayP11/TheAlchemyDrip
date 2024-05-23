@@ -87,6 +87,7 @@ export const place_order_url = BaseUrl + "new-place-order";
 // export const add_address_url = BaseUrl + "add-address";
 export const add_address_url = BaseUrl + "add-address";
 export const get_countries = BaseUrl + "countries";
+export const get_cities = BaseUrl + "cities";
 export const get_state = BaseUrl + "state";
 export const get_address = BaseUrl + "view-address";
 export const delete_address = BaseUrl + "delete-address";
@@ -106,6 +107,7 @@ export const notification = BaseUrl + "notification";
 export const remove_wishlist = BaseUrl + "removewishlist/";
 export const wishlist_details = BaseUrl + "wishlists-details";
 export const getcampus = BaseUrl + "getcampus";
+export const get_size_color_stock = BaseUrl + "get-size-color-stock";
 
 export const category_verify = BaseUrl + "category-verify";
 export const get_category = BaseUrl + "get-category";

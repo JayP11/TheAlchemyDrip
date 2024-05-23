@@ -129,7 +129,8 @@ const CategoryGrid = ({ getdrop, setdrop }) => {
                     setModal(true);
                     setslug(c.slug);
                     setCategoryId(c.id);
-                  }}>
+                  }}
+                >
                   {/* <Link to={`/products`}> */}
                   <div className="a">
                     <img
@@ -160,7 +161,8 @@ const CategoryGrid = ({ getdrop, setdrop }) => {
           onRequestClose={() => {
             setModal(false);
           }}
-          style={customStyles}>
+          style={customStyles}
+        >
           <>
             <div
               style={{
@@ -168,7 +170,8 @@ const CategoryGrid = ({ getdrop, setdrop }) => {
                 justifyContent: "center",
                 padding: "0.6rem",
                 background: "gainsboro",
-              }}>
+              }}
+            >
               <b style={{ fontSize: "18px", margin: "0px" }}>PASSWORD</b>
             </div>
             <div className="model_sizing">
@@ -187,7 +190,8 @@ const CategoryGrid = ({ getdrop, setdrop }) => {
                 <button
                   className="btn"
                   style={{ width: "100%", margin: "0px" }}
-                  onClick={() => SigninMall()}>
+                  onClick={() => SigninMall()}
+                >
                   Submit
                 </button>
               </div>

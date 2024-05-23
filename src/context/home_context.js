@@ -38,7 +38,7 @@ export const HomeProvider = ({ children }) => {
         },
       });
       const homeData = response.data;
-      // console.log("hom", homeData);
+      console.log("hom", homeData);
       dispatch({ type: GET_HOME_DATA_SUCCESS, payload: homeData });
     } catch (error) {
       dispatch({ type: GET_HOME_DATA_ERROR });

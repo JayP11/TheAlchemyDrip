@@ -8,7 +8,7 @@ import CartTotals from "./CartTotals";
 
 const CartContent = () => {
   const { cart, clearCart } = useCartContext();
-  // console.log("🚀 ~ file: CarContent.js:11 ~ CartContent ~ cart:", cart)
+  console.log("🚀 ~ file: CarContent.js:11 ~ CartContent ~ cart:", cart)
   return (
     <Wrapper className="section section-center">
       {/* heading for cart screen tables  */}
@@ -16,7 +16,7 @@ const CartContent = () => {
       {/* cart items */}
       {cart.map((item) => {
         {
-          /* console.log("################################",JSON.stringify( item,null,2)) */
+         console.log("################################",JSON.stringify( item,null,2))
         }
         return <CartItem key={item.id} {...item} />;
       })}

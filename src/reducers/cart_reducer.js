@@ -14,13 +14,14 @@ const cart_reducer = (state, action) => {
       color,
       amount,
       product,
-      mainSize,
-      slug,
+       slug,
       images,
       value,
       sizeValue,
       getstock,
-      sizeid
+      sizeid,
+      color_id,
+      colorName
     } = action.payload;
 
     // console.log("===>",sizeid);
@@ -54,7 +55,9 @@ const cart_reducer = (state, action) => {
         // max: product.stock,
         max: getstock,
         size: sizeValue,
-        sizeid:sizeid
+        sizeid:sizeid,
+        color_id:color_id,
+        colorName:colorName
       };
       // console.log("123", newItem);
       return { ...state, cart: [...state.cart, newItem] };

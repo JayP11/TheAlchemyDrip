@@ -69,7 +69,7 @@ const Footer = () => {
                 <div className="row">
                   <div className="col-sm-4">
                     <div className="widget">
-                      <h4 class="widget-title">The Company</h4>
+                      <h4 class="widget-title">Quick links</h4>
                       <ul className="links link-parts">
                         <li>
                           <Link to="/">Home</Link>
@@ -80,23 +80,31 @@ const Footer = () => {
                         <li>
                           <Link to="/contactus">Contact</Link>
                         </li>
-                        {/* <li>
-                          <a href="javascript:void(0)">Consistency Offer</a>
-                          <Link to="/">Shipping & Delivery Policy</Link>
-                        </li> */}
+                        <li>
+                          <Link to="/ShippingDeliveryPolicy">
+                            Shipping & Delivery Policy
+                          </Link>
+                        </li>
                         <li>
                           <Link to="/ExchangeReturnPolicy">
                             Exchange Return And Refund
                           </Link>
                         </li>
                         <li>
-                          {/* <a href="javascript:void(0)">Terms and Condition</a> */}
-                          <Link to="/TermsCondition">
-                            Terrm & Condition & Privacy Policy
-                          </Link>
+                          <Link to="/TermsCondition">Terrm & Condition</Link>
+                        </li>
+                        <li>
+                          <Link to="/PrivacyPolicy">Privacy Policy</Link>
                         </li>
                         {/* <li>
-                          <Link to="/PrivacyPolicy">Privacy Policy</Link>
+                          <Link to="/ExchangeReturnPolicy">
+                            Exchange Return And Refund
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/TermsCondition">
+                            Term & Condition & Privacy Policy
+                          </Link>
                         </li> */}
                       </ul>
                     </div>
@@ -138,7 +146,8 @@ const Footer = () => {
                       <li>
                         <h4
                           class="widget-title"
-                          style={{ marginBottom: "10px" }}>
+                          style={{ marginBottom: "10px" }}
+                        >
                           Phone
                         </h4>
                         <span>
@@ -149,13 +158,15 @@ const Footer = () => {
                       <li>
                         <h4
                           class="widget-title"
-                          style={{ marginBottom: "10px" }}>
+                          style={{ marginBottom: "10px" }}
+                        >
                           Whatsapp
                         </h4>
                         <span>
                           <a
                             href="http://api.whatsapp.com/send?phone=8296485534&text=Let%27s%20Get%20in%20Touch"
-                            target="_blank">
+                            target="_blank"
+                          >
                             +91 82964 85534
                           </a>
                         </span>
@@ -163,7 +174,8 @@ const Footer = () => {
                       <li>
                         <h4
                           class="widget-title"
-                          style={{ marginBottom: "10px" }}>
+                          style={{ marginBottom: "10px" }}
+                        >
                           Email
                         </h4>
                         <span>
@@ -185,7 +197,8 @@ const Footer = () => {
               <div class="col-md-8">
                 <p
                   class="footer-copyright py-3 pr-4 mb-0"
-                  style={{ color: "rgb(151, 151, 151)" }}>
+                  style={{ color: "rgb(151, 151, 151)" }}
+                >
                   © 2024 The Alchemy Drip , All right reserved.
                 </p>
               </div>
@@ -197,7 +210,8 @@ const Footer = () => {
         <div className="f-link-btn">
           <a
             href="http://api.whatsapp.com/send?phone=82964 85534&text=Let%27s%20Get%20in%20Touch"
-            target="_blank">
+            target="_blank"
+          >
             <FaWhatsapp />
           </a>
         </div>

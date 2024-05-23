@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar, Sidebar, Footer, NavbarHome } from "./components";
 
@@ -20,16 +20,33 @@ import {
   ShippingDeliveryPolicy,
 } from "./pages";
 import CancellationRefund from "./pages/CancellationRefund";
-import ProductsPage from "./pages/ProductsPage";
 import ProPage from "./pages/ProPage";
 import ExchangeReturnPg from "./pages/ExchangeReturnPg";
 import ExchangeReturnDetails from "./pages/ExchangeReturnDetails";
 import ExchangeReturnPolicy from "./pages/exchangeReturnPolicy/ExchangeReturnPolicy";
+import Cookies from "js-cookie";
 
 function App() {
+  useEffect(() => {
+    const clearCookiesForPath = (path) => {
+      const allCookies = Cookies.get(); // Get all cookies
+      for (let cookieName in allCookies) {
+        Cookies.remove(cookieName, { path }); // Remove each cookie for the specific path
+      }
+    };
+
+    clearCookiesForPath("https://theAlchemydripuniforms.com/");
+  }, []);
+
+  document.cookie.split(";").forEach((c) => {
+    document.cookie = c
+      .replace(/^ +/, "")
+      .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+  });
+
   return (
     <AuthWrapper>
-      <Router basename={"/TheAlchemyDrip"}>
+      <Router>
         <Sidebar />
         <Switch>
           <Route exact path="/">
@@ -93,7 +110,7 @@ function App() {
             <CancellationRefund />
           </Route>
           <Route exact path="/ShippingDeliveryPolicy">
-            <Navbar />
+            <NavbarHome />
             <ShippingDeliveryPolicy />
           </Route>
           <Route exact path="/ExchangeReturnPolicy">

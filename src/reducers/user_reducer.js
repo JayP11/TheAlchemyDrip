@@ -39,6 +39,7 @@ const user_reducer = (state, action) => {
     return { ...state, isLogin: false, userid: "", logindata: {},logintoken:'' };
   }
   return state;
+  // eslint-disable-next-line no-unreachable
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 

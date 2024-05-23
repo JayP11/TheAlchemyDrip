@@ -32,6 +32,8 @@ const CheckoutPage = () => {
 
   const { cart, total_amount, shipping_fees, clearCart, orderResponse } =
     useCartContext();
+
+    console.log("cart are",cart);
   const { isLogin, logintoken, logindata } = useUserContext();
   const { setOrder, order_data, login_loading, setOrderGuest } =
     useOrderContext();
@@ -107,7 +109,7 @@ const CheckoutPage = () => {
     for (var i = 0; i < cart.length; i++) {
       formData.append(`product_id[${i}]`, cart[i].idmain);
       // formData.append(`color_id[${i}]`, cart[i].color);
-      formData.append(`color_id[${i}]`, 1);
+      formData.append(`color_id[${i}]`, cart[i].color_id);
       formData.append(`size_id[${i}]`, cart[i].sizeid);
       // formData.append(`size_id[${i}]`, 1);
       // formData.append(`size_id[${i}]`, cart[i].size);
@@ -206,7 +208,7 @@ const CheckoutPage = () => {
     formData.append(`country_id`, country);
     for (var i = 0; i < cart.length; i++) {
       formData.append(`product_id[${i}]`, cart[i].idmain);
-      formData.append(`color_id[${i}]`, cart[i].color);
+      formData.append(`color_id[${i}]`, cart[i].color_id);
       formData.append(`size_id[${i}]`, cart[i].sizeid);
       formData.append(`main_price[${i}]`, cart[i].price);
       formData.append(`price[${i}]`, cart[i].price);
@@ -245,17 +247,14 @@ const CheckoutPage = () => {
       names = logindata.name;
     }
     var options = {
-      // key: "rzp_live_EGIRrud6dPuubI",
-      // key: "rzp_test_PcJbHDcGhcGxlv",
-      // key: "rzp_test_OP1ZatqCXyH2Zq", //test
-      // key: "rzp_live_0w1C4me9f1dfrt",
- key: "rzp_test_A4BHB5UpfyPSSU",
+      key: "rzp_live_pXp8Xsvsqxx2j2",
+      // key: "rzp_test_C1WkhcrxRyAGl9",
 
       currency: "INR",
-      // order_id: order_id,
+      order_id: order_id,
       name: "The Alchemy Drip",
       description: "Transaction",
-      amount: total_amount * 100,
+      amount: total_amount * 100.0,
       prefill: {
         name: names,
       },
@@ -352,7 +351,8 @@ const CheckoutPage = () => {
                                   </span>
                                   <a
                                     href="javascript:void(0)"
-                                    onClick={() => setShowlogin(!showscreen)}>
+                                    onClick={() => setShowlogin(!showscreen)}
+                                  >
                                     Log in
                                   </a>
                                 </p>
@@ -436,7 +436,8 @@ const CheckoutPage = () => {
                                   };
                                   setStateAddress("");
                                   getStates(params);
-                                }}>
+                                }}
+                              >
                                 <option value={""}>Select Country</option>
                                 {get_countrylist.map((country, index) => {
                                   return (
@@ -453,7 +454,8 @@ const CheckoutPage = () => {
                                 value={_state}
                                 onChange={(e) => {
                                   setStateAddress(e.target.value);
-                                }}>
+                                }}
+                              >
                                 <option value={""}>Select State</option>
 
                                 {get_statelist.map((states, index) => {
@@ -491,7 +493,8 @@ const CheckoutPage = () => {
                               <a
                                 href="javascript:void(0)"
                                 className="btn-normal btn"
-                                onClick={placeOrderGuest}>
+                                onClick={placeOrderGuest}
+                              >
                                 Submit
                               </a>
                             </div>
@@ -609,7 +612,8 @@ const CheckoutPage = () => {
 
                                   <ul
                                     className="online-pay-option"
-                                    style={{ listStyleType: "circle" }}>
+                                    style={{ listStyleType: "circle" }}
+                                  >
                                     <li className="online-pay-option-sub">
                                       Card
                                     </li>
@@ -671,7 +675,8 @@ const CheckoutPage = () => {
                               <a
                                 href="javascript:void(0)"
                                 className="btn-normal btn"
-                                onClick={placeOrder}>
+                                onClick={placeOrder}
+                              >
                                 Place Order
                               </a>
                             </div>
@@ -680,7 +685,8 @@ const CheckoutPage = () => {
                               <a
                                 href="javascript:void(0)"
                                 className="btn-normal btn"
-                                onClick={placeOrderGuest}>
+                                onClick={placeOrderGuest}
+                              >
                                 Login/Guest
                               </a>
                             </div>

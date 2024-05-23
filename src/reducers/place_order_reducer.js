@@ -5,8 +5,7 @@ import {
   GET_ORDER_SUCCESS,
   GET_SINGLE_ORDER_DETILS,
   STORE_TICKERS_LIST,
-  RE_ORDER_PRODUCT,
-} from "../actions";
+ } from "../actions";
 
 const place_order_reducer = (state, action) => {
   //all home data
@@ -46,6 +45,7 @@ const place_order_reducer = (state, action) => {
   }
 
   return state;
+  // eslint-disable-next-line no-unreachable
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 

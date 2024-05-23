@@ -31,7 +31,6 @@ const Sidebar = () => {
   const prodatalist = async () => {
     const datalist = await localStorage.getItem("productdata");
     setdata2(JSON.parse(datalist));
-    // console.log("productdata", JSON.parse(datalist));
   };
 
   return (
@@ -156,11 +155,11 @@ const Sidebar = () => {
           })}
 
           {isLogin ? (
-            <div className="dropdown">
-              <Link className="nav-linkk">
+            <div className="dropdown" style={{padding:"0 1.5rem"}}>
+              <div className="nav-linkk">
                 Sections&nbsp;
                 <i className="fa fa-caret-down"></i>
-              </Link>
+              </div>
               <div className="dropdown-content" onClick={closeSideBar}>
                 {/* <div className="row"> */}
                 {getdata2 && getdata2.length > 0 ? (
@@ -214,7 +213,9 @@ const Sidebar = () => {
             </Link>
           </li> */}
         </ul>
-        <CartButtons />
+        <div style={{padding:"0 1.5rem"}}>
+          <CartButtons />
+        </div>
       </aside>
     </SidebarContainerr>
   );

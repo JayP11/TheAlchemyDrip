@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { PageHero, StripeCheckout } from "../components";
-// extra imports
 import { useAddressContext } from "../context/address_context";
-import { Link } from "react-router-dom";
 import { useUserContext } from "../context/user_context";
 import Notification from "../utils/Notification";
-import axios from "axios";
 import Modal from "react-modal";
 import { FaPlusCircle, FaHome, FaCheckCircle } from "react-icons/fa";
 import { mobileValidate, emailValidate } from "../utils/helpers";
 import { CHECKOUT_SCREEN } from "../utils/constants";
+import Select from "react-select";
+import { IoMdClose } from "react-icons/io";
 
 const customStyles = {
   content: {
@@ -28,28 +27,37 @@ const UserAddress = (props) => {
   const {
     addAddress,
     get_address_data,
-    get_countrylist,
     getCountries,
+    get_countrylist,
     getStates,
     get_statelist,
+    getCities,
+    get_citylist,
     getAddress,
     deleteAddress,
     editAddress,
   } = useAddressContext();
 
-  console.log("addressn are", get_address_data);
-  const [firstname, setFirstname] = React.useState("");
-  const [mobile, setMobile] = React.useState("");
-  const [address, setAddress] = React.useState("");
-  const [_state, setStateAddress] = React.useState("");
-  const [city, setCity] = React.useState("");
-  const [country, setCountry] = React.useState("");
-  const [postalcode, setPostalCode] = React.useState("");
-  const [showlist, showAddressList] = React.useState(false);
-  const [modalIsOpen, setIsOpen] = React.useState(false); // add address modal
-  const [addressId, setAddressId] = React.useState(""); // add address modal
-  const [isEdit, setEditType] = React.useState(false); // add address modal
-  const [screenType, setScreen] = React.useState(
+  console.log("addressn are", get_statelist);
+  console.log("getCities are", get_citylist);
+
+  const [firstname, setFirstname] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
+  const [_state, setStateAddress] = useState("");
+  const [getCityAddress, setCityAddress] = useState("");
+  const [getcityid, setCityId] = useState("");
+  const [getStateid, setStateid] = useState("");
+  const [getCountryid, setCountryid] = useState("");
+  const [getCountryId, setCountryId] = useState();
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
+  const [postalcode, setPostalCode] = useState("");
+  const [showlist, showAddressList] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false); // add address modal
+  const [addressId, setAddressId] = useState(""); // add address modal
+  const [isEdit, setEditType] = useState(false); // add address modal
+  const [screenType, setScreen] = useState(
     props.screenType ? props.screenType : 0
   ); // add address modal
 
@@ -69,10 +77,6 @@ const UserAddress = (props) => {
 
     getCountries();
   }, []);
-  // console.log(
-  //   "🚀 ~ file: UserAddress.js:73 ~ UserAddress ~ get_countrylist:",
-  //   get_countrylist
-  // );
 
   const mDeleteAddress = async (id) => {
     let formData = new FormData(); //formdata object
@@ -101,7 +105,6 @@ const UserAddress = (props) => {
 
   const addNewAddress = async () => {
     setEditType(false);
-
     setFirstname("");
     setMobile("");
     setCountry("");
@@ -117,10 +120,6 @@ const UserAddress = (props) => {
       Notification("error", "Error!", "Please enter full name!");
       return;
     }
-    // else if (re.test(firstname) == false) {
-    //   Notification("error", "Error!", "Please enter valid  firstname");
-    //   return;
-    // }
 
     if (mobile == "") {
       Notification("error", "Error!", "Please enter mobile number!");
@@ -141,18 +140,18 @@ const UserAddress = (props) => {
       return;
     }
 
-    if (country == "") {
-      Notification("error", "Error!", "Please select country!");
-      return;
-    }
-    if (_state == "") {
-      Notification("error", "Error!", "Please select state!");
-      return;
-    }
-    if (city == "") {
-      Notification("error", "Error!", "Please enter city!");
-      return;
-    }
+    // if (country == "") {
+    //   Notification("error", "Error!", "Please select country!");
+    //   return;
+    // }
+    // if (_state == "") {
+    //   Notification("error", "Error!", "Please select state!");
+    //   return;
+    // }
+    // if (getCityAddress == "") {
+    //   Notification("error", "Error!", "Please enter city!");
+    //   return;
+    // }
 
     let formData = new FormData();
 
@@ -160,9 +159,9 @@ const UserAddress = (props) => {
     formData.append(`number`, mobile);
     formData.append(`pincode`, postalcode);
     formData.append(`address`, address);
-    formData.append(`city_id`, city);
-    formData.append(`state_id`, _state);
-    formData.append(`country_id`, country);
+    formData.append(`city_id`, getcityid);
+    formData.append(`state_id`, getStateid);
+    formData.append(`country_id`, getCountryid);
     formData.append(`is_status`, 1);
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
@@ -179,11 +178,6 @@ const UserAddress = (props) => {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = '#f00';
-  }
-
   function closeModal() {
     setIsOpen(false);
   }
@@ -193,6 +187,47 @@ const UserAddress = (props) => {
       props.mSelectAddress(item.id);
     }
   };
+  const countryHandleChange = (selectedOption) => {
+    setCountry(selectedOption);
+    setCountryId(selectedOption.value);
+    setCountryid(selectedOption.value);
+
+    var params = {
+      country_id: selectedOption.value, // Access selected value
+    };
+    setStateAddress("");
+    getStates(params);
+
+    console.log("Selected Option:", selectedOption);
+  };
+
+  const stateHandleChange = (selectedOption) => {
+    setStateAddress(selectedOption);
+    setStateid(selectedOption.value);
+
+    var params = {
+      country_id: getCountryId, // Access selected value
+      state_id: selectedOption.value, // Access selected value
+    };
+    setCityAddress("");
+    getCities(params);
+
+    console.log("Selected Option:", selectedOption);
+  };
+  const cityHandleChange = (selectedOption) => {
+    setCityAddress(selectedOption);
+    setCityId(selectedOption.value);
+
+    // var params = {
+    //   country_id: getCountryId, // Access selected value
+    //   state_id: selectedOption.value, // Access selected value
+    // };
+    // setCityAddress("");
+    // getCities(params);
+
+    console.log("Selected Option:", selectedOption);
+  };
+
   return (
     <main>
       <Wrapper
@@ -280,7 +315,7 @@ const UserAddress = (props) => {
           contentLabel="Example Modal">
           <Innermodal>
             <button className="close-button" onClick={closeModal}>
-              X
+              <IoMdClose />
             </button>
             <div className="checkout-page contact-page">
               <div className="checkout-form">
@@ -319,7 +354,8 @@ const UserAddress = (props) => {
 
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
                       <label className="field-label">Address</label>
-                      <input
+                      <textarea
+                        rows="4"
                         type="text"
                         name="field-name"
                         value={address}
@@ -327,55 +363,37 @@ const UserAddress = (props) => {
                         placeholder="Street address"
                       />
                     </div>
-                    <div className="form-group col-md-12 col-sm-12 col-xs-12">
+
+                    {/* <div className="form-group col-md-12 col-sm-12 col-xs-12">
                       <label className="field-label">Country</label>
-                      <select
+                      <Select
                         value={country}
-                        onChange={(e) => {
-                          setCountry(e.target.value);
-                          var params = {
-                            country_id: e.target.value,
-                          };
-                          setStateAddress("");
-                          getStates(params);
-                        }}>
-                        <option value={""}>Select Country</option>
-                        {get_countrylist.map((country, index) => {
-                          return (
-                            <option value={country.id}>{country.name}</option>
-                          );
-                        })}
-                      </select>
+                        onChange={countryHandleChange}
+                        options={get_countrylist}
+                        placeholder="Select country"
+                      />
                     </div>
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
                       <label className="field-label">State</label>
-                      <select
+                      <Select
                         value={_state}
-                        onChange={(e) => {
-                          setStateAddress(e.target.value);
-                        }}>
-                        <option value={""}>Select State</option>
-
-                        {get_statelist.map((states, index) => {
-                          return (
-                            <option value={states.state_id}>
-                              {states.name}
-                            </option>
-                          );
-                        })}
-                      </select>
+                        onChange={stateHandleChange}
+                        options={get_statelist}
+                        placeholder="Select States"
+                      />
                     </div>
                     <div className="form-group col-md-12 col-sm-12 col-xs-12">
                       <label className="field-label">City</label>
-                      <input
-                        type="text"
-                        name="field-name"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        placeholder=""
+                      <Select
+                        value={getCityAddress}
+                        // onChange={(e) => setCity(e.target.value)}
+                        onChange={cityHandleChange}
+                        options={get_citylist}
+                        placeholder="Select City"
                       />
-                    </div>
+                    </div> */}
 
+                    {/* here */}
                     <div className="form-group col-md-12 col-sm-6 col-xs-12">
                       <label className="field-label">Postal Code</label>
                       <input
@@ -412,6 +430,7 @@ const Wrapper = styled.section`
     border-radius: 0;
     font-size: 1.4rem;
   }
+
   .card {
     position: relative;
     display: -ms-flexbox;
@@ -574,6 +593,14 @@ const Innermodal = styled.section`
   .top-group label {
     font-size: 14px !important;
   }
+
+  .close-button {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+  }
   h2.section__title {
     font-size: 16px;
     letter-spacing: 0.1em;
@@ -624,6 +651,7 @@ const Innermodal = styled.section`
     background-color: #ffffff;
     border: 30px solid #f3f7f8;
     margin: 30px 0 70px 0;
+    margin-bottom: 1rem;
   }
   .col-lg-6 {
     -webkit-box-flex: 0;
@@ -693,7 +721,7 @@ const Innermodal = styled.section`
           line-height: 24px;
           text-transform: capitalize;
           color: $font-color;
-          margin-bottom: 10px;
+          ${"" /* margin-bottom: 10px;   */}
           font-weight: 700;
 
           span {
@@ -722,7 +750,8 @@ const Innermodal = styled.section`
         &[type="number"],
         &[type="url"] {
           width: 100%;
-          padding: 0 22px;
+          padding: 10px;
+          ${"" /* padding: 0 22px; */}
           height: 45px;
           border: 1px solid #dddddd;
         }
@@ -731,8 +760,8 @@ const Innermodal = styled.section`
       select,
       textarea {
         width: 100%;
-        padding: 0 22px;
-        height: 45px;
+        padding: 10px;
+        ${"" /* height: 45px; */}
         background: $white;
         border: 1px solid #dddddd;
       }
@@ -1102,6 +1131,7 @@ const Innermodal = styled.section`
     .custom-container {
       padding: 0px !important;
     }
+
     .checkout-details.theme-form.section-big-mt-space,
     .contact-page .theme-form {
       padding: 15px;

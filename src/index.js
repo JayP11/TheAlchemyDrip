@@ -10,8 +10,7 @@ import { HomeProvider } from "./context/home_context";
 import { WishlistProvider } from "./context/wishlist_context";
 import { OrderProvider } from "./context/place_order_context";
 import { AddressProvider } from "./context/address_context";
-import { Auth0Provider } from "@auth0/auth0-react";
-
+ 
 ReactDOM.render(
   <HomeProvider>
     <UserProvider>

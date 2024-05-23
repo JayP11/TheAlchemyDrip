@@ -43,7 +43,9 @@ export const CartProvider = ({ children }) => {
     value,
     sizeValue,
     getstock,
-    sizeid
+    sizeid,
+    color_id,
+    colorName
   ) => {
     dispatch({
       type: ADD_TO_CART,
@@ -58,7 +60,9 @@ export const CartProvider = ({ children }) => {
         value,
         sizeValue,
         getstock,
-        sizeid
+        sizeid,
+        color_id,
+        colorName,
       },
     });
     Notification("success", "Success!", "Product Add to Cart Successfully.");

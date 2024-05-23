@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { useProductsContext } from "../context/products_context";
-import { single_product_url as url } from "../utils/constants";
+import {
+  ACCEPT_HEADER,
+  get_size_color_stock,
+  single_product_url as url,
+} from "../utils/constants";
 import { formatPrice } from "../utils/helpers";
 import Notification from "../utils/Notification";
 
@@ -21,10 +25,10 @@ import { Link } from "react-router-dom";
 import { FaHeart, FaWhatsapp, FaMailBulk, FaRegHeart } from "react-icons/fa";
 import { useUserContext } from "../context/user_context";
 import { useWishlistContext } from "../context/wishlist_context";
+import axios from "axios";
 
 const SingleProductPage = () => {
   const { userid, isLogin } = useUserContext();
-  // console.log("user is is", userid);
   let wishprodid = localStorage.getItem("wishprodid");
   // window.scrollTo(0, 0);
   const { addToWishlist, removeItemWishlist } = useWishlistContext();
@@ -65,7 +69,6 @@ const SingleProductPage = () => {
     description,
     stock,
     product_images,
-    // is_wishlist,
     id,
     product_id,
     size,
@@ -76,21 +79,28 @@ const SingleProductPage = () => {
     wishlist,
     size_id,
   } = single_product1;
-  console.log("singleProduct inventory", single_product1.details);
+
+  console.log("log single pro", single_product1.details);
   const [value, setValue] = useState("");
   const [value1, setValue1] = useState("");
-  // const [inventory, setInventory] = useState("");
+  const [getColor, setColor] = useState("");
   const [sizeValue, setSizeValue] = useState("");
   const [sizeValue2, setSizeValue2] = useState("");
   const [getstock2, SetStock2] = useState();
   const [sizeId, setSizeId] = useState("");
+  const [colorId, setColorId] = useState("");
+  const [colorName, setColorName] = useState("");
   // const [getstock, SetStock] = useState(singleProduct? singleProduct.details[0].inventory :'');
   const [getstock, SetStock] = useState();
+  // const [getColorId, setColorId] = useState();
   const [getwish, setWish] = useState();
   const [getcondition, SetCondition] = useState(false);
   const [getcon1, SetCon1] = useState(false);
 
   const [activeButtonIndex, setActiveButtonIndex] = useState(0);
+  const [getActiveColor, setActiveColor] = useState(null);
+  const [getColors, setColors] = useState([]);
+  // const [getSize_Id, setSize_Id] = useState("");
 
   const handleButtonClick = (index) => {
     setActiveButtonIndex(index);
@@ -106,24 +116,17 @@ const SingleProductPage = () => {
     fetchSingleProduct1(`${url}/${slug}/abc/${userid}`);
   }, [slug]);
 
-  // useEffect(()=>{
-
-  // },[])
-
   useEffect(() => {
-    // {details && details[0] && details[0].size_name ?  setSizeValue2(details[0].size_name) : null}
     setSizeValue2(size && size);
     SetStock2(inventory && inventory);
   }, [single_product1]);
 
   useEffect(() => {
-    // console.log(" single_product....", is_wishlist);
     if (is_wishlist) {
       setWishlistType(1);
     } else {
       setWishlistType(2);
     }
-    // console.log(" single_product .... wishlistType", wishlistType);
   }, [single_product1]);
 
   useEffect(() => {
@@ -164,6 +167,57 @@ const SingleProductPage = () => {
     return <Error />;
   }
 
+  const duplicateSizes = details?.filter(
+    (item, index) =>
+      details?.map((item) => item.size_name).indexOf(item.size_name) !== index
+  );
+  console.log("duplicate", duplicateSizes);
+
+  const sizeApi = async (id) => {
+    console.log("abc");
+
+    // if (name == "") {
+    //   Notification("error", "Error!", "Please enter your Name!");
+    //   return;
+    // } else if (description == "") {
+    //   Notification("error", "Error!", "Please enter some Description!");
+    //   return;
+    // }
+    // if {
+    const formData = new FormData();
+    formData.append("product_id", product_id);
+    formData.append("size_id", id);
+
+    console.log("formData colorapi ", formData);
+
+    const response = await axios
+      .post(get_size_color_stock, formData, {
+        headers: {
+          Accept: "application/x.uniform.v1+json",
+        },
+        "Access-Control-Allow-Origin": "*",
+      })
+      .catch((error) => console.error(`Error: ${error}`));
+    console.log("response   ", response.data.detail);
+    setColors(response.data.detail);
+
+    // if (response.data.success == 1) {
+    //   setProd_Id("");
+    //   setSize_Id("");
+
+    //   Notification(
+    //     "success",
+    //     "Success!",
+    //     "form has been successfully submitted"
+    //   );
+    //   return;
+    // } else {
+    //   Notification("error", "Error!", "please enter valid data!");
+    //   return;
+    // }
+    // }
+  };
+
   return (
     <Wrapper>
       {/* <Navbar /> */}
@@ -177,7 +231,6 @@ const SingleProductPage = () => {
           back to products
         </Link> */}
         <div className="product-center" style={{ gap: "1.5rem" }}>
-          {/* gallery */}
           <ProductImages images={product_images} />
           <section className="content">
             <h2
@@ -211,6 +264,7 @@ const SingleProductPage = () => {
                 alignItems: "flex-start",
               }}>
               <b>Available in : </b>
+                <h5>Select Size:</h5> 
               <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 {details &&
                   details.map((item, index) => {
@@ -237,44 +291,121 @@ const SingleProductPage = () => {
                           setValue(item.price);
                           setValue1(item.wholesale_price);
                           setSizeId(item.size_id);
+                          // setColorId(item.color_id);
+                          // setColorName(item.color_name);
                           SetCon1(true);
                           setSizeValue(item.size_name);
                           SetStock(item.inventory);
                           setWish(item.wishlist);
                           SetCondition(true);
-                          //  setMain(inventory[index])
+                          sizeApi(item.size_id);
                         }}>
                         {item.size_name}
+                        {/* {item.color_name} */}
                       </button>
                     );
                   })}
               </div>
+              {/* <div
+                style={{
+                  padding: "1rem 0",
+                  display: "flex",
+                  gap: "0.5rem",
+                }}>
+                 {getColors.map((item, index) => {
+                  const isSelected = index === getActiveColor;
+                  return (
+                    <>
+                      <div
+                        key={index}
+                        onClick={() => {
+                          setColorId(item.color_id);
+                          setColorName(item.color_name);
+                          setActiveColor(index);
+                        }}
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "50%",
+                          background: item.color_code,
+                          filter: isSelected ? "grayscale(50%)" : "none",
+                          cursor: "pointer", // Optional: Add cursor pointer to indicate clickability
+                        }}></div>
+                    </>
+                  );
+                })}
+              </div> */}
             </div>
-            {getcondition === true ? (
-              <>
-                {getstock > 0 && (
-                  <AddToCart
-                    product={single_product1}
-                    value={value}
-                    sizeValue={sizeValue}
-                    getstock={getstock}
-                    sizeid={sizeId}
-                  />
-              )}
-              </>
+
+            {getColors.length <= 0 || getColors[0]?.color_id === 1 ? (
+              <></>
             ) : (
               <>
-                {inver_index > 0 && (
-                  <AddToCart
-                    product={single_product1}
-                    value={price}
-                    sizeValue={sizeValue2}
-                    getstock={getstock2}
-                    sizeid={size_id}
-                  />
-                )}
+                <div
+                  style={{
+                    padding: getColors[0]?.color_id === 1 ? "0" : "1rem 0",
+                    display: getColors[0]?.color_id === 1 ? "block" : "flex",
+                    gap: getColors[0]?.color_id === 1 ? "0rem" : "0.5rem",
+                  }}>
+                  {/* Select Color: */}
+                  {/* {getColor[0]?.color_id ===  1 } */}
+                  <h5>select Color:</h5>
+
+                  {getColors.map((item, index) => {
+                    const isSelected = index === getActiveColor;
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          setColorId(item.color_id);
+                          setColorName(item.color_name);
+                          setActiveColor(index);
+                        }}
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "50%",
+                          background: item.color_code,
+                          opacity: isSelected ? "0.6" : "1",
+                          // filter: isSelected ? "grayscale(50%)" : "none",
+                          cursor: "pointer", // Optional: Add cursor pointer to indicate clickability
+                        }}></div>
+                    );
+                  })}
+                </div>{" "}
               </>
             )}
+            <div>
+              {colorId >= 1 ? (
+                <AddToCart
+                  product={single_product1}
+                  value={value}
+                  sizeValue={sizeValue}
+                  getstock={getstock}
+                  sizeid={sizeId}
+                  colorId={colorId}
+                  colorName={colorName}
+                />
+              ) : (
+                <></>
+              )}
+            </div>
+            <div>
+              {getColors[0]?.color_id === 1 ? (
+                <AddToCart
+                  product={single_product1}
+                  value={value}
+                  sizeValue={sizeValue}
+                  getstock={getstock}
+                  sizeid={sizeId}
+                  colorId={colorId}
+                  colorName={colorName}
+                />
+              ) : (
+                <></>
+              )}
+            </div>
+
             <div className="description-part-main">
               <div className="description-part">
                 <p
@@ -287,7 +418,7 @@ const SingleProductPage = () => {
                   <p
                     style={{ marginBottom: "0px" }}
                     dangerouslySetInnerHTML={{
-                      __html: description,  
+                      __html: description,
                     }}></p>
                 </p>
                 <hr />

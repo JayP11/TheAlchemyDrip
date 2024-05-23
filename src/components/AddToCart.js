@@ -4,9 +4,17 @@ import styled from "styled-components";
 import { useCartContext } from "../context/cart_context";
 import QtyButtons from "./QtyButtons";
 import IImages from "../constants/IImages";
-const AddToCart = ({ product, value, sizeValue, getstock, sizeid }) => {
+const AddToCart = ({
+  product,
+  value,
+  sizeValue,
+  getstock,
+  sizeid,
+  colorId,
+  colorName,
+}) => {
   const { addToCart } = useCartContext();
-
+  console.log("colorId are ==>",colorId);
   const { stock, colors, sizes, HIGHT, LENGTH, WIDTH, slug } = product;
   console.log("product details", sizeValue);
   console.log("product details qty", getstock);
@@ -50,7 +58,7 @@ const AddToCart = ({ product, value, sizeValue, getstock, sizeid }) => {
           <button
             type="submit"
             onClick={() => {
-              console.log("ttttt->", JSON.stringify(value, null, 2));
+              console.log("ttttt->", JSON.stringify(colorId, null, 2));
               addToCart(
                 product.product_id,
                 mainColor,
@@ -62,7 +70,9 @@ const AddToCart = ({ product, value, sizeValue, getstock, sizeid }) => {
                 value,
                 sizeValue,
                 getstock,
-                sizeid
+                sizeid,
+                colorId,
+                colorName,
               );
 
               // addToCart(id, mainColor, qty, product, mainSize, slug);

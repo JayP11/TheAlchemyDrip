@@ -48,8 +48,7 @@ const ProductsPage = () => {
   const prodatalist = async () => {
     const datalist = await localStorage.getItem("productdata");
     setdata2(JSON.parse(datalist));
-    // console.log("productdata", JSON.parse(datalist));
-  };
+   };
 
   return (
     <main>

@@ -18,7 +18,10 @@ const CartItem = ({
   idmain,
   slug,
   sizeid,
+  colorId,
+  colorName,
 }) => {
+  console.log("colorId",colorId);
   const { removeItem, toggleAmount } = useCartContext();
   const increase = () => {
     toggleAmount(id, "inc");
@@ -49,14 +52,18 @@ const CartItem = ({
         <div>
           <h5 className="name">{name}</h5>
 
-          {/* {color !== "no" && (
-            <p className="color">
-              color : <span style={{ background: color }}></span>
-              <h5 className="price-small">{formatPrice(price)}</h5>
-            </p>
-          )} */}
           <p className="name" style={{ marginTop: "0.3rem" }}>
             Size : <span>{size}</span>
+          </p>
+          <p className="name" style={{ marginTop: "0.3rem" }}>
+            {colorName === "" ? (
+              <></>
+            ) : (
+              <>
+                {" "}
+                color : <span>{colorName}</span>
+              </>
+            )}
           </p>
           {/* <Link to={`/products/${slug}`} className="btn"> */}
           <Link to={`/products/${slug}/abc/0`} className="btn">
@@ -73,7 +80,6 @@ const CartItem = ({
         onClick={() => {
           removeItem(id);
         }}>
-        
         <FaTrash />
       </button>
     </Wrapper>

@@ -61,9 +61,10 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
       alert("Please enter your email ID!");
       // Notification("error", "Error!", "Please enter your email ID!");
       return;
-    } else if (regEx.test(email) == false) {
-      alert("Please enter valid email id!");
-      return;
+    // }
+    // else if (regEx.test(email) == false) {
+    //   alert("Please enter valid email id!");
+    //   return;
     } else if (password == "") {
       alert("Please enter your password!");
       return;
@@ -88,10 +89,9 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
       alert("Please enter your email ID!");
       // Notification("error", "Error!", "Please enter your email ID!");
       return;
-    } else if (regEx.test(email) == false) {
-      // Notification("error", "Error!", "Please enter valid email id!");
-      alert("Please enter valid email id!");
-      return;
+    // } else if (regEx.test(email) == false) {
+    //   alert("Please enter valid email id!");
+    //   return;
     } else if (password == "") {
       // Notification("error", "Error!", "Please enter your password!");
       alert("Please enter your password!");
@@ -211,9 +211,9 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
                         <FaCheckCircle /> Remember Me{" "}
                       </a>
                     </li>
-                    <li>
+                    {/* <li>
                       <a href="javascript:void(0)">Forget Password?</a>
-                    </li>
+                    </li> */}
                   </ul>
                   <div className="login-button" style={{ display: "flex" }}>
                     <button
@@ -320,7 +320,6 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
                     <div className="input-row" action="#">
                       <MdSchool />
                       <label>Campus</label>
-
                       <select
                         className="dropdown_career"
                         name="Campus"

@@ -23,9 +23,9 @@ const NavbarHome = ({ getdrop }) => {
     }
   };
 
-  useEffect(() => {
-    // console.log("first, ", openSideBar);
-  });
+  // useEffect(() => {
+  //   console.log("first, ", openSideBar);
+  // });
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -44,7 +44,6 @@ const NavbarHome = ({ getdrop }) => {
   const prodatalist = async () => {
     const datalist = await localStorage.getItem("productdata");
     setdata2(JSON.parse(datalist));
-    // console.log("productdata", JSON.parse(datalist));
   };
 
   return (
@@ -105,7 +104,13 @@ const NavbarHome = ({ getdrop }) => {
                       );
                     })
                   ) : (
-                    <p>No data found</p>
+                    <>
+                      <Link to="/Propage/PrePrimarySection">Pre Primary</Link>
+                      <Link to="/Propage/PRIMARYSECTION">Primary</Link>
+                      <Link to="/Propage/UPPERPRIMARYSECTION">
+                        Upper Primary
+                      </Link>
+                    </>
                   )}
                 </div>
               </div>
@@ -114,7 +119,7 @@ const NavbarHome = ({ getdrop }) => {
             )}
           </div>
         </div>
-        <ul className="nav-links">
+        <ul className="nav-links" style={{ alignItems: "center" }}>
           {links.map((link) => {
             const { id, text, url } = link;
             return (
@@ -126,10 +131,15 @@ const NavbarHome = ({ getdrop }) => {
 
           {isLogin ? (
             <div className="dropdown">
-              <Link className="nav-linkk">
+              <div
+                className="nav-linkk"
+                style={{
+                  color: "var(--clr-primary-darkred)",
+                  fontWeight: "500",
+                }}>
                 Sections&nbsp;
                 <i className="fa fa-caret-down"></i>
-              </Link>
+              </div>
               <div className="dropdown-content">
                 {/* <div className="row"> */}
                 {getdata2 && getdata2.length > 0 ? (
@@ -160,7 +170,16 @@ const NavbarHome = ({ getdrop }) => {
                     );
                   })
                 ) : (
-                  <p>No data found</p>
+                  <>
+                    <Link to="/Propage/PrePrimarySection">
+                      PrePrimarySection
+                    </Link>
+                    <Link to="/Propage/PRIMARYSECTION">PRIMARYSECTION</Link>
+                    <Link to="/Propage/UPPERPRIMARYSECTION">
+                      UPPERPRIMARYSECTION
+                    </Link>
+                  </>
+                  // <p>No data found</p >
                 )}
                 {/* </div> */}
               </div>

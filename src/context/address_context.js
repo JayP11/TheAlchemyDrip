@@ -4,6 +4,7 @@ import axios from "axios";
 import {
   add_address_url,
   get_countries,
+  get_cities,
   get_state,
   get_address,
   delete_address,
@@ -17,6 +18,7 @@ import {
   ADDRESS_GET_SUCCESS,
   GET_COUNTRY,
   GET_STATES,
+  GET_CITY,
 } from "../actions";
 
 // use for login data management
@@ -27,6 +29,7 @@ const initialState = {
   get_address_data: [],
   get_countrylist: [],
   get_statelist: [],
+  get_citylist: [],
 };
 const AddressContext = createContext();
 export const AddressProvider = ({ children }) => {
@@ -163,6 +166,22 @@ export const AddressProvider = ({ children }) => {
       dispatch({ type: ADDRESS_ERROR });
     }
   };
+   const getCities = async (params) => {
+     dispatch({ type: ADDRESS_BEGIN });
+     try {
+       const response = await axios.post(get_cities, params, {
+         headers: {
+           Accept: "application/x.uniform.v1+json",
+         },
+       });
+       const cityList = response.data;
+       if (cityList.success == 1) {
+         dispatch({ type: GET_CITY, payload: cityList.message });
+       }
+     } catch (error) {
+       dispatch({ type: ADDRESS_ERROR });
+     }
+   };
   return (
     <AddressContext.Provider
       value={{
@@ -171,6 +190,7 @@ export const AddressProvider = ({ children }) => {
         editAddress,
         getCountries,
         getStates,
+        getCities,
         getAddress,
         deleteAddress,
       }}>

@@ -77,3 +77,4 @@ export const ADDRESS_GET_SUCCESS = "ADDRESS_GET_SUCCESS";
 export const ADDRESS_ERROR = "ADDRESS_ERROR";
 export const GET_COUNTRY = "GET_COUNTRY";
 export const GET_STATES = "GET_STATES";
+export const GET_CITY = "GET_CITY";

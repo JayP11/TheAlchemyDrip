@@ -5,7 +5,8 @@ import {
   ADDRESS_ERROR,
   ADDRESS_GET_SUCCESS,
   GET_COUNTRY,
-  GET_STATES
+  GET_STATES,
+  GET_CITY,
 } from "../actions";
 
 const address_reducer = (state, action) => {
@@ -37,6 +38,13 @@ const address_reducer = (state, action) => {
      
     };
   }
+   if (action.type === GET_CITY) {
+     return {
+       ...state,
+       loading: false,
+       get_citylist: action.payload,
+     };
+   }
   if (action.type === ADDRESS_GET_SUCCESS) {
     return {
       ...state,

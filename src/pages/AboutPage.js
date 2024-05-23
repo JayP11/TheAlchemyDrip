@@ -8,20 +8,32 @@ import {
   FaLinkedin,
   FaWhatsapp,
 } from "react-icons/fa";
+import IImages from "../constants/IImages";
+import TimeLine from "../components/timeline/TimeLine";
+import DemoTimeline from "../components/demoTimeline/DemoTimeline";
 
 const AboutPage = () => {
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
   return (
     <main>
       <PageHero title="About" />
-      <Wrapper className="page  section-center">
-        <div className="row">
+      <Wrapper className="page">
+        <div>
+          <img
+            style={{ height: "100%", width: "100%" }}
+            // src="https://thealchemydrip.com/wp-content/uploads/2021/04/about-img1.jpg"
+            src={IImages.AboutUs}
+            alt=""
+          />
+        </div>
+        <div className="row abt_margin" style={{ paddingTop: "3rem" }}>
           <div
             style={{ display: "flex", gap: "1rem", flexDirection: "column" }}>
             <div className="title">
               <h1 style={{ color: "black", marginBottom: "1rem" }}>
                 Our Story is Your Story
               </h1>
+
               <div className="underline"></div>
             </div>
             <div className="title_wrapper">
@@ -31,23 +43,12 @@ const AboutPage = () => {
           <h1 style={{ marginTop: "1rem" }}>
             A Flavorful Journey Around the World Since 1963
           </h1>
-          <p>
-            {/* &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */}
-            {/* The Alchemy Drip is a subsidiary of Deepak Readymade House, Rajkot,
-            Gujarat. We are pioneers in manufacturing and retail of readymade
-            school uniforms since 1963. We have 2 retail showrooms and one
-            manufacturing facility in Rajkot, Gujarat. By expanding business, we
-            are starting our operations in Bangalore in 2022 with the name The
-            Alchemy Drip. */}
-          </p>
-          <p>
-            {/* &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  */}
+          <p style={{ textAlign: "center" }}>
             Our experimental clothing line has unique and tailor-made pieces. We
             specialize in making school uniforms and customized apparel that’s
             made to order. Our garments are designed to nail the perfect fit.
           </p>
-          <p>
-            {/* &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */}
+          {/* <p style={{ textAlign: "center" }}>
             The Alchemy Drip started in 2022, but our roots are much deeper. Our
             humble beginnings date back to 1963. It all started in the town of
             Rajkot, Gujarat as Deepak Readymade House; an established garments
@@ -56,8 +57,7 @@ const AboutPage = () => {
             art manufacturing facility that caters to 350+ academic institutes
             across the Saurashtra region and multiple corporate companies.
           </p>
-          <p>
-            {/* &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; */}
+          <p style={{ textAlign: "center" }}>
             At the Alchemy drip, we carefully curate high quality clothing and
             customise them as per your requirement. With our decades of
             experience you know the job is done right. We are known for our top
@@ -66,21 +66,192 @@ const AboutPage = () => {
             thousands of happy customers. Do reach out to us with your queries.
             We are waiting to hear from you. We guarantee you the best quality
             with the best service.
-          </p>
+          </p> */}
         </div>
+        <div className="block2_main abt_margin">
+          <div className="block2_part1_main">
+            <img
+              style={{ height: "100%", width: "100%", objectFit: "cover" }}
+              src={IImages.aboutDeepak}
+              // src="https://thealchemydrip.com/wp-content/uploads/2022/12/Hoodie.jpg"
+              alt=""
+            />
+          </div>
+          <div className="block2_part2_main">
+            <h4
+              style={{
+                fontWeight: "400",
+                // borderBottom: "2px solid",
+                paddingBottom: "0.5rem",
+              }}>
+              WE ARE A LIFESTYLE BRAND
+              <div className="underline1"></div>
+            </h4>
+
+            <div>
+              <p
+                style={{
+                  fontSize: "18px",
+                }}>
+                The Alchemy Drip started in 2022, but our roots are much deeper.
+                Our humble beginnings date back to 1963. It all started in the
+                town of Rajkot, Gujarat as Deepak Readymade House; an
+                established garments manufacturer, primarily dealing with school
+                uniforms.
+              </p>
+              <p
+                style={{
+                  fontSize: "18px",
+                  marginBottom: "0px",
+                }}>
+                And now in 2022, 6 decades later; we have 2 retail showrooms and
+                a state of an art manufacturing facility that caters to 350+
+                academic institutes across the Saurashtra region and multiple
+                corporate companies.
+              </p>
+            </div>
+            <div>
+              <button className="btn_brand">CUSTOMIZE YOUR OWN</button>
+            </div>
+          </div>
+        </div>
+        <div className="block3_main abt_margin">
+          <div className="block2_part2_main">
+            <h4
+              style={{
+                fontWeight: "400",
+                paddingBottom: "0.5rem",
+              }}>
+              WE ARE A LIFESTYLE BRAND
+              <div className="underline1"></div>
+            </h4>
+
+            <div>
+              <p
+                style={{
+                  fontSize: "18px",
+                }}>
+                At the Alchemy drip, we carefully curate high quality clothing
+                and customise them as per your requirement. With our decades of
+                experience you know the job is done right.
+              </p>
+              <p
+                style={{
+                  fontSize: "18px",
+                }}>
+                We are known for our top notch service, as excellent customer
+                service and customer satisfaction is our highest priority.
+              </p>
+              <p
+                style={{
+                  fontSize: "18px",
+                }}>
+                We have gained the respect of thousands of happy customers.
+              </p>
+              <p
+                style={{
+                  fontSize: "18px",
+                }}>
+                Do reach out to us with your queries. We are waiting to hear
+                from you. We guarantee you the best quality with the best
+                service.
+              </p>
+            </div>
+            <div>
+              <button className="btn_brand">SHOP NOW</button>
+            </div>
+          </div>
+          <div className="block2_part1_main">
+            <img
+              style={{ height: "100%", width: "100%", objectFit: "cover" }}
+              src={IImages.aboutDeepak1}
+              // src="https://thealchemydrip.com/wp-content/uploads/2022/12/t-shirt.jpg"
+              alt=""
+            />
+          </div>
+        </div>
+        <div
+          className="block4_main"
+          style={{
+            backgroundImage: `url(${IImages.aboutDeepak2})`,
+            WebkitBackdropFilter: "revert-layer",
+            filter: "grayscale(1)",
+          }}>
+          <div className="block4_inner">
+            <div className="block4_box_main">
+              <div style={{ height: "55px" }}>
+                <img
+                  src={IImages.shippingIcon}
+                  alt="shippingIcon"
+                  style={{ height: "100%" }}
+                />{" "}
+              </div>
+              <div>
+                <h4 style={{ color: "white", marginBottom: "0px" }}>
+                  Shipping Countrywide
+                </h4>
+              </div>
+              <div>
+                <p style={{ color: "white" }}>We ship throughout the country</p>
+              </div>
+            </div>
+            <div className="block4_box_main">
+              <div style={{ height: "55px" }}>
+                <img
+                  src={IImages.return_order}
+                  alt="shippingIcon"
+                  style={{ height: "100%" }}
+                />
+              </div>
+              <div>
+                <h4 style={{ color: "white", marginBottom: "0px" }}>
+                  14 Days Return
+                </h4>
+              </div>
+              <div>
+                <p style={{ color: "white" }}>14-days free return policy.</p>
+              </div>
+            </div>
+            <div className="block4_box_main">
+              <div style={{ height: "55px" }}>
+                <img
+                  src={IImages.secure_pay}
+                  alt="shippingIcon"
+                  style={{ height: "100%" }}
+                />
+              </div>
+              <div>
+                <h4 style={{ color: "white", marginBottom: "0px" }}>
+                  Security Payment
+                </h4>
+              </div>
+              <div>
+                <p style={{ color: "white" }}>
+                  We accept all major credit cards.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <TimeLine /> */}
+        <DemoTimeline />
       </Wrapper>
     </main>
   );
 };
 
 const Wrapper = styled.section`
+  .abt_margin {
+    margin: 0 auto;
+    max-width: 1140px;
+  }
   .row {
     padding: 2rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    margin: 0 -15px 35px;
+    /* margin: 0 -15px 35px; */
     text-align: center;
     h1 {
       color: var(--clr-primary-darkred);
@@ -95,11 +266,73 @@ const Wrapper = styled.section`
     }
   }
 
+  .block2_main {
+    display: flex;
+  }
+  .block3_main {
+    display: flex;
+    padding-top: 4rem;
+  }
+
+  .block4_main {
+    display: flex;
+    align-items: center;
+    margin-top: 4rem;
+    background-attachment: fixed;
+    justify-content: space-around;
+    background-position: center;
+    background-attachment: center;
+    backdrop-filter: blur(2px);
+    background-size: cover;
+    height: 400px;
+  }
+
+  .block4_box_main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .block4_inner {
+    display: flex;
+    justify-content: space-around;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .block2_part1_main {
+    width: 50%;
+  }
+  .block2_part2_main {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    padding: 0 3rem;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
   .title_wrapper {
     font-size: 20px;
     color: gray;
   }
   @media screen and (max-width: 767px) {
+    .block2_main {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    .block3_main {
+      flex-direction: column-reverse;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .block2_part2_main {
+      width: 100%;
+    }
+
     .page.section.section-center {
       min-height: unset !important;
       padding: 30px 0;
@@ -117,6 +350,12 @@ const Wrapper = styled.section`
       }
     }
   }
+  @media screen and (max-width: 900px) {
+    .block2_part1_main {
+      height: 400px;
+      width: 350px;
+    }
+  }
   @media screen and (max-width: 400px) {
     .row h1 {
       font-size: 1.5rem;
@@ -126,8 +365,25 @@ const Wrapper = styled.section`
       font-size: 18px;
     }
 
-    .row p{font-size:18px;  }
+    .row p {
+      font-size: 18px;
+    }
+    .block4_main {
+      height: fit-content;
+    }
+    .block4_box_main {
+      gap: 0.5rem;
+    }
+
+    .block2_part2_main {
+      padding: 0 2rem;
+    }
+    .block2_part1_main {
+      padding: 0 1rem;
+    }
+  }
 `;
+
 // const Service = styled.section`
 //   .page.section.section-center {
 //     background: #f3ece6;

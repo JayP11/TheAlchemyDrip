@@ -157,7 +157,8 @@ export const UserProvider = ({ children }) => {
         logoutUser,
         getUserDetails,
         updateUserDetails,
-      }}>
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

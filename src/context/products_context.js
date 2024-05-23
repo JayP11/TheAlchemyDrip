@@ -84,7 +84,7 @@ export const ProductsProvider = ({ children }) => {
         },
       });
       const products = response.data.data;
-      // console.log("products  detch api", products);
+      console.log("products  detch api", products);
       dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
     } catch (error) {
       dispatch({ type: GET_SINGLE_PRODUCT_ERROR });
@@ -171,7 +171,6 @@ export const ProductsProvider = ({ children }) => {
       const logindata = response.data;
       localStorage.setItem("productdata", JSON.stringify(response.data.data));
       if (logindata.status == 1) {
-        
         // console.log("====", JSON.stringify(logindata, null, 2));
         Notification("success", "Valid Password.");
         dispatch({ type: MALL_SIGNUP_SUCCESS, payload: response.data.data });
@@ -202,7 +201,8 @@ export const ProductsProvider = ({ children }) => {
         fetchCategorieslist,
         setMallRegister,
         fetchSingleProduct1,
-      }}>
+      }}
+    >
       {children}
     </ProductsContext.Provider>
   );
