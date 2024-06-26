@@ -264,7 +264,7 @@ const SingleProductPage = () => {
                 alignItems: "flex-start",
               }}>
               <b>Available in : </b>
-                <h5>Select Size:</h5> 
+              <h5>Select Size:</h5>
               <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                 {details &&
                   details.map((item, index) => {
@@ -372,39 +372,54 @@ const SingleProductPage = () => {
                         }}></div>
                     );
                   })}
-                </div>{" "}
+                </div>
               </>
             )}
-            <div>
-              {colorId >= 1 ? (
-                <AddToCart
-                  product={single_product1}
-                  value={value}
-                  sizeValue={sizeValue}
-                  getstock={getstock}
-                  sizeid={sizeId}
-                  colorId={colorId}
-                  colorName={colorName}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-            <div>
-              {getColors[0]?.color_id === 1 ? (
-                <AddToCart
-                  product={single_product1}
-                  value={value}
-                  sizeValue={sizeValue}
-                  getstock={getstock}
-                  sizeid={sizeId}
-                  colorId={colorId}
-                  colorName={colorName}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
+            {getstock == 0 ? (
+              <h3
+                style={{
+                  color: "red",
+                  padding: "1rem 0",
+                }}>
+                Out of stock
+              </h3>
+            ) : (
+              <div>
+                {colorId >= 1 ? (
+                  <AddToCart
+                    product={single_product1}
+                    value={value}
+                    sizeValue={sizeValue}
+                    getstock={getstock}
+                    sizeid={sizeId}
+                    colorId={colorId}
+                    colorName={colorName}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+            )}
+
+            {getstock == 0 ? (
+              <></>
+            ) : (
+              <div>
+                {getColors[0]?.color_id === 1 ? (
+                  <AddToCart
+                    product={single_product1}
+                    value={value}
+                    sizeValue={sizeValue}
+                    getstock={getstock}
+                    sizeid={sizeId}
+                    colorId={colorId}
+                    colorName={colorName}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+            )}
 
             <div className="description-part-main">
               <div className="description-part">

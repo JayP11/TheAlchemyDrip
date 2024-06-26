@@ -656,9 +656,9 @@ const MyOrders = () => {
                         ? orderDetailsObject.address.address
                         : "Address Not Found"}{" "}
                       {orderDetailsObject.shipping_pincode} ,<br />
-                      {orderDetailsObject.shipping_city_name} ,{" "}
-                      {orderDetailsObject.shipping_state_name} ,{" "}
-                      {orderDetailsObject.shipping_country_name}
+                      {orderDetailsObject.shipping_city_name} 
+                      {/* {orderDetailsObject.shipping_state_name} ,{" "} */}
+                      {/* {orderDetailsObject.shipping_country_name} */}
                     </p>
                     <p>
                       <span classNameName="bold-fonts">

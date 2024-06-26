@@ -27,31 +27,23 @@ const UserAddress = (props) => {
   const {
     addAddress,
     get_address_data,
-    getCountries,
     get_countrylist,
+    getCountries,
     getStates,
     get_statelist,
-    getCities,
-    get_citylist,
     getAddress,
     deleteAddress,
     editAddress,
   } = useAddressContext();
 
-  console.log("addressn are", get_statelist);
-  console.log("getCities are", get_citylist);
-
+  console.log("addressn are", get_countrylist);
   const [firstname, setFirstname] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const [_state, setStateAddress] = useState("");
-  const [getCityAddress, setCityAddress] = useState("");
-  const [getcityid, setCityId] = useState("");
-  const [getStateid, setStateid] = useState("");
-  const [getCountryid, setCountryid] = useState("");
-  const [getCountryId, setCountryId] = useState();
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
+  const [getCountryInput, setCountryInput] = useState();
   const [postalcode, setPostalCode] = useState("");
   const [showlist, showAddressList] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false); // add address modal
@@ -120,6 +112,10 @@ const UserAddress = (props) => {
       Notification("error", "Error!", "Please enter full name!");
       return;
     }
+    // else if (re.test(firstname) == false) {
+    //   Notification("error", "Error!", "Please enter valid  firstname");
+    //   return;
+    // }
 
     if (mobile == "") {
       Notification("error", "Error!", "Please enter mobile number!");
@@ -148,7 +144,7 @@ const UserAddress = (props) => {
     //   Notification("error", "Error!", "Please select state!");
     //   return;
     // }
-    // if (getCityAddress == "") {
+    // if (city == "") {
     //   Notification("error", "Error!", "Please enter city!");
     //   return;
     // }
@@ -159,9 +155,12 @@ const UserAddress = (props) => {
     formData.append(`number`, mobile);
     formData.append(`pincode`, postalcode);
     formData.append(`address`, address);
-    formData.append(`city_id`, getcityid);
-    formData.append(`state_id`, getStateid);
-    formData.append(`country_id`, getCountryid);
+    // formData.append(`city_id`, city);
+    // formData.append(`state_id`, _state);
+    // formData.append(`country_id`, country);
+    formData.append(`city_id`, 1);
+    formData.append(`state_id`, 1);
+    formData.append(`country_id`, 1);
     formData.append(`is_status`, 1);
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
@@ -178,6 +177,11 @@ const UserAddress = (props) => {
     setIsOpen(true);
   }
 
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = '#f00';
+  }
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -187,47 +191,44 @@ const UserAddress = (props) => {
       props.mSelectAddress(item.id);
     }
   };
+
   const countryHandleChange = (selectedOption) => {
-    setCountry(selectedOption);
-    setCountryId(selectedOption.value);
-    setCountryid(selectedOption.value);
-
-    var params = {
-      country_id: selectedOption.value, // Access selected value
-    };
-    setStateAddress("");
-    getStates(params);
-
-    console.log("Selected Option:", selectedOption);
-  };
-
-  const stateHandleChange = (selectedOption) => {
     setStateAddress(selectedOption);
-    setStateid(selectedOption.value);
-
     var params = {
-      country_id: getCountryId, // Access selected value
-      state_id: selectedOption.value, // Access selected value
+      country_id: getCountryInput,
+      // country_id: getCountryId,
+      // state_id: selectedOption.value,
     };
-    setCityAddress("");
-    getCities(params);
-
-    console.log("Selected Option:", selectedOption);
-  };
-  const cityHandleChange = (selectedOption) => {
-    setCityAddress(selectedOption);
-    setCityId(selectedOption.value);
-
-    // var params = {
-    //   country_id: getCountryId, // Access selected value
-    //   state_id: selectedOption.value, // Access selected value
-    // };
+    setCountryInput(selectedOption);
     // setCityAddress("");
     // getCities(params);
 
+    console.log("Selected params:", params);
     console.log("Selected Option:", selectedOption);
   };
 
+  // const countryHandleChange = (e) => {
+  //   const countryId = e.target.value;
+  //   setCountry(countryId);
+  //   const params = {
+  //     country_id: countryId,
+  //   };
+  //   setStateAddress("");
+  //   getStates(params);
+  // };
+
+  // const stateHandleChange = (selectedOption) => {
+  //   setStateAddress(selectedOption);
+
+  //   var params = {
+  //     country_id: getCountryId,
+  //     state_id: selectedOption.value,
+  //   };
+  //   setCityAddress("");
+  //   getCities(params);
+
+  //   console.log("Selected Option:", selectedOption);
+  // };
   return (
     <main>
       <Wrapper
@@ -272,10 +273,11 @@ const UserAddress = (props) => {
                           </h4>
                           <address>Mobile : {item.number}</address>
                           <address>
-                            {item.address} - {item.city_id}
+                            {item.address}
+                            {/* - {item.city_id} */}
                           </address>
                           <address>
-                            {item.state_name}, {item.country_name} -{" "}
+                            {/* {item.state_name}, {item.country_name} -{" "} */}
                             {item.pincode}
                           </address>
                         </div>
@@ -363,35 +365,6 @@ const UserAddress = (props) => {
                         placeholder="Street address"
                       />
                     </div>
-
-                    {/* <div className="form-group col-md-12 col-sm-12 col-xs-12">
-                      <label className="field-label">Country</label>
-                      <Select
-                        value={country}
-                        onChange={countryHandleChange}
-                        options={get_countrylist}
-                        placeholder="Select country"
-                      />
-                    </div>
-                    <div className="form-group col-md-12 col-sm-12 col-xs-12">
-                      <label className="field-label">State</label>
-                      <Select
-                        value={_state}
-                        onChange={stateHandleChange}
-                        options={get_statelist}
-                        placeholder="Select States"
-                      />
-                    </div>
-                    <div className="form-group col-md-12 col-sm-12 col-xs-12">
-                      <label className="field-label">City</label>
-                      <Select
-                        value={getCityAddress}
-                        // onChange={(e) => setCity(e.target.value)}
-                        onChange={cityHandleChange}
-                        options={get_citylist}
-                        placeholder="Select City"
-                      />
-                    </div> */}
 
                     {/* here */}
                     <div className="form-group col-md-12 col-sm-6 col-xs-12">

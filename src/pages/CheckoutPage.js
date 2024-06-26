@@ -33,7 +33,7 @@ const CheckoutPage = () => {
   const { cart, total_amount, shipping_fees, clearCart, orderResponse } =
     useCartContext();
 
-    console.log("cart are",cart);
+  console.log("cart are", cart);
   const { isLogin, logintoken, logindata } = useUserContext();
   const { setOrder, order_data, login_loading, setOrderGuest } =
     useOrderContext();
@@ -109,7 +109,11 @@ const CheckoutPage = () => {
     for (var i = 0; i < cart.length; i++) {
       formData.append(`product_id[${i}]`, cart[i].idmain);
       // formData.append(`color_id[${i}]`, cart[i].color);
-      formData.append(`color_id[${i}]`, cart[i].color_id);
+      if (cart[i]?.color_id == null || cart[i]?.color_id == "") {
+        formData.append(`color_id[${i}]`, 1);
+      } else {
+        formData.append(`color_id[${i}]`, cart[i].color_id);
+      }
       formData.append(`size_id[${i}]`, cart[i].sizeid);
       // formData.append(`size_id[${i}]`, 1);
       // formData.append(`size_id[${i}]`, cart[i].size);
@@ -129,7 +133,7 @@ const CheckoutPage = () => {
       Notification("success", "", order_data.message);
       clearCart();
       history.push("/");
-    }
+    } 
 
     console.log("response order ", order_data);
   };
@@ -208,7 +212,13 @@ const CheckoutPage = () => {
     formData.append(`country_id`, country);
     for (var i = 0; i < cart.length; i++) {
       formData.append(`product_id[${i}]`, cart[i].idmain);
-      formData.append(`color_id[${i}]`, cart[i].color_id);
+
+      if (cart[i]?.color_id == null || cart[i]?.color_id == "") {
+        formData.append(`color_id[${i}]`, 1);
+      } else {
+        formData.append(`color_id[${i}]`, cart[i].color_id);
+      }
+      // formData.append(`color_id[${i}]`, cart[i].color_id);
       formData.append(`size_id[${i}]`, cart[i].sizeid);
       formData.append(`main_price[${i}]`, cart[i].price);
       formData.append(`price[${i}]`, cart[i].price);
@@ -296,7 +306,6 @@ const CheckoutPage = () => {
         } else if (myRes && myRes.data.success == 0) {
           alert(myRes.data.message);
         }
-
         // Notification("success", "", order_data.message);
       },
     };
@@ -351,8 +360,7 @@ const CheckoutPage = () => {
                                   </span>
                                   <a
                                     href="javascript:void(0)"
-                                    onClick={() => setShowlogin(!showscreen)}
-                                  >
+                                    onClick={() => setShowlogin(!showscreen)}>
                                     Log in
                                   </a>
                                 </p>
@@ -436,8 +444,7 @@ const CheckoutPage = () => {
                                   };
                                   setStateAddress("");
                                   getStates(params);
-                                }}
-                              >
+                                }}>
                                 <option value={""}>Select Country</option>
                                 {get_countrylist.map((country, index) => {
                                   return (
@@ -454,8 +461,7 @@ const CheckoutPage = () => {
                                 value={_state}
                                 onChange={(e) => {
                                   setStateAddress(e.target.value);
-                                }}
-                              >
+                                }}>
                                 <option value={""}>Select State</option>
 
                                 {get_statelist.map((states, index) => {
@@ -493,8 +499,7 @@ const CheckoutPage = () => {
                               <a
                                 href="javascript:void(0)"
                                 className="btn-normal btn"
-                                onClick={placeOrderGuest}
-                              >
+                                onClick={placeOrderGuest}>
                                 Submit
                               </a>
                             </div>
@@ -510,7 +515,7 @@ const CheckoutPage = () => {
                               Product <span>Total</span>
                             </div>
                           </div>
-                          <ul className="qty">
+                          <ul className="qty pro_qty_line">
                             {cart.map((item) => {
                               return (
                                 <li style={{ textTransform: "capitalize" }}>
@@ -570,7 +575,7 @@ const CheckoutPage = () => {
                                     value="3"
                                     checked={payment_type === "3"}
                                     onChange={() => setPaymentType("3")}
-                                  />
+                                    />
 
                                   <label>Cash On Delivery</label>
                                 </div> */}
@@ -612,8 +617,7 @@ const CheckoutPage = () => {
 
                                   <ul
                                     className="online-pay-option"
-                                    style={{ listStyleType: "circle" }}
-                                  >
+                                    style={{ listStyleType: "circle" }}>
                                     <li className="online-pay-option-sub">
                                       Card
                                     </li>
@@ -675,8 +679,7 @@ const CheckoutPage = () => {
                               <a
                                 href="javascript:void(0)"
                                 className="btn-normal btn"
-                                onClick={placeOrder}
-                              >
+                                onClick={placeOrder}>
                                 Place Order
                               </a>
                             </div>
@@ -685,8 +688,7 @@ const CheckoutPage = () => {
                               <a
                                 href="javascript:void(0)"
                                 className="btn-normal btn"
-                                onClick={placeOrderGuest}
-                              >
+                                onClick={placeOrderGuest}>
                                 Login/Guest
                               </a>
                             </div>
@@ -1004,7 +1006,6 @@ const Wrapper = styled.section`
         }
       }
     }
-
     .sub-total {
       position: relative;
       border-bottom: 1px solid #dddddd;
@@ -1364,6 +1365,15 @@ const Wrapper = styled.section`
     }
   }
   @media screen and (max-width: 575px) {
+     .order-box .qty li { 
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-between;
+    }
+    .pro_qty_line {
+      display: flex;
+      flex-direction: column;
+    }
     .form-group.col-md-6.col-sm-6.col-xs-12 {
       flex: 0 0 100%;
       padding: 0px !important;

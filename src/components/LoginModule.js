@@ -56,26 +56,59 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
   }, []);
   let history = useHistory();
 
+  const performLogin = async (params) => {
+    try {
+      const response = await axios.post(url, params, {
+        headers: {
+          Accept: "application/x.uniform.v1+json",
+        },
+      });
+      const logindata = response.data;
+
+      if (logindata.success == 1) {
+        localStorage.setItem("logindata", JSON.stringify(logindata.user));
+        localStorage.setItem("islogin", JSON.stringify(true));
+        localStorage.setItem("userid", JSON.stringify(logindata.user.id));
+        localStorage.setItem("token", JSON.stringify(logindata.token));
+      }
+      return response.data;
+    } catch (error) {
+      return {
+        success: 0,
+        message: error.response ? error.response.data.message : error.message,
+      };
+    }
+  };
   const mLogin = async () => {
     if (email == "") {
       alert("Please enter your email ID!");
       // Notification("error", "Error!", "Please enter your email ID!");
       return;
-    // }
-    // else if (regEx.test(email) == false) {
-    //   alert("Please enter valid email id!");
-    //   return;
+      // }
+      // else if (regEx.test(email) == false) {
+      //   alert("Please enter valid email id!");
+      //   return;
     } else if (password == "") {
       alert("Please enter your password!");
       return;
+    } else {
+      var params = {
+        email: email,
+        password: password,
+      };
+
+      console.log("123params", params);
+
+      const data = await performLogin(params);
+
+      if (data && data.success === 1) {
+        history.push("/products");
+      } else {
+        alert("Login failed: " + (data.message || "Invalid credentials"));
+      }
+      setLogin(params, url);
     }
 
-    var params = {
-      email: email,
-      password: password,
-    };
-
-    setLogin(params, url);
     // const data = await mLogin(params);
     // if (data) {
     //   if (data.success == 1) {
@@ -89,9 +122,9 @@ const LoginModule = ({ showscreen, setShowlogin }) => {
       alert("Please enter your email ID!");
       // Notification("error", "Error!", "Please enter your email ID!");
       return;
-    // } else if (regEx.test(email) == false) {
-    //   alert("Please enter valid email id!");
-    //   return;
+      // } else if (regEx.test(email) == false) {
+      //   alert("Please enter valid email id!");
+      //   return;
     } else if (password == "") {
       // Notification("error", "Error!", "Please enter your password!");
       alert("Please enter your password!");

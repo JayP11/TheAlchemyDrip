@@ -41,6 +41,7 @@ const Wrapper = styled.main`
   @media screen and (max-width: 575px) {
     .link-container {
       flex-wrap: wrap;
+      gap:1rem;
       .link-btn {
         flex: 0 0 100%;
         max-width: 100%;
